@@ -4,7 +4,7 @@ export default function Expense({ title, amount }) {
   return (
     <Wrapper>
       <p>{title}</p>
-      <p>{amount}€</p>
+      <p>{amount}</p>
     </Wrapper>
   );
 }

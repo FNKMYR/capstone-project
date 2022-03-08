@@ -27,14 +27,33 @@ export default function ExpenseList() {
       .reduce((prev, curr) => +prev + +curr, 0)
     //The unary plus operator (+prev) converts the strings to numbers
   );
+  function expenseFormatter(num) {
+    let p = Number(num).toFixed(2).split('.');
+    return (
+      (p[0].split('')[0] === '-' ? '-' : '') +
+      p[0]
+        .split('')
+        .reverse()
+        .reduce(function (acc, num, i, orig) {
+          return num === '-' ? acc : num + (i && !(i % 3) ? ',' : '') + acc;
+        }, '') +
+      '.' +
+      p[1] +
+      ' €'
+    );
+  }
   return (
     <Wrapper>
       <TotalExpenses>
         <p>Total expenses:</p>
-        <p>{totalExpenses}€</p>
+        <p>{expenseFormatter(totalExpenses)}</p>
       </TotalExpenses>
       {expenses.map((expense, index) => (
-        <Expense key={index} title={expense.title} amount={expense.amount} />
+        <Expense
+          key={index}
+          title={expense.title}
+          amount={expenseFormatter(expense.amount)}
+        />
       ))}
       <AddExpense onSubmit={handleSubmit}>
         <label>
