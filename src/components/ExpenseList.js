@@ -16,6 +16,7 @@ export default function ExpenseList() {
     //The unary plus operator (+prev) converts the strings to numbers
   );
   function expenseFormatter(num) {
+    //puts the expense into a 1,234,567.89€ format
     let p = Number(num).toFixed(2).split('.');
     return (
       (p[0].split('')[0] === '-' ? '-' : '') +
@@ -42,6 +43,7 @@ export default function ExpenseList() {
           title={expense.title}
           amount={expenseFormatter(expense.amount)}
           onClick={() =>
+            //This is for the delete button
             setExpenses(
               expenses
                 .slice(0, index)
