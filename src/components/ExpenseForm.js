@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import styled from 'styled-components';
 
-export default function ExpenseForm(props) {
+export default function ExpenseForm({ addToExpenses }) {
   const [inputValue, setInputValue] = useState({ title: '', amount: '' });
   const inputRef = useRef(null);
   const handleSubmit = e => {
     e.preventDefault();
-    props.onSubmit(prevExpenses => [
+    addToExpenses(prevExpenses => [
       ...prevExpenses,
       {
         title: inputValue.title,
@@ -39,6 +39,7 @@ export default function ExpenseForm(props) {
           <input
             type="text"
             name="amount"
+            required={true}
             pattern="^\d*(\.\d{0,2})?$"
             value={inputValue.amount}
             placeholder="Use '.' as a decimal separator, e.g. 12.45"

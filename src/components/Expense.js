@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-export default function Expense(props) {
+export default function Expense({ deleteExpense, index, title, amount }) {
   const handleClick = e => {
     e.preventDefault();
-    props.onClick(currExpenses => currExpenses.slice[props.index]);
+    deleteExpense(currExpenses => currExpenses.slice[index]);
   };
 
   return (
     <Wrapper>
-      <p>{props.title}</p>
+      <p>{title}</p>
       <button onClick={handleClick}>DEL</button>
-      <p>{props.amount}</p>
+      <p>{amount}</p>
     </Wrapper>
   );
 }

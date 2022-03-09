@@ -1,14 +1,7 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import Expense from './Expense.js';
-import ExpenseForm from './ExpenseForm.js';
 
-export default function ExpenseList() {
-  const [expenses, setExpenses] = useState([
-    { title: 'Chinese food', amount: 20.0 },
-    { title: 'Taxi', amount: 15.74 },
-  ]);
-
+export default function ExpenseList({ expenses, setExpenses }) {
   const totalExpenses = Number(
     expenses
       .map(expense => expense.amount)
@@ -42,7 +35,7 @@ export default function ExpenseList() {
           key={index}
           title={expense.title}
           amount={expenseFormatter(expense.amount)}
-          onClick={() =>
+          deleteExpense={() =>
             //This is for the delete button
             setExpenses(
               expenses
@@ -52,7 +45,6 @@ export default function ExpenseList() {
           }
         />
       ))}
-      <ExpenseForm onSubmit={value => setExpenses(value)} />
     </Wrapper>
   );
 }
