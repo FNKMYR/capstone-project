@@ -37,6 +37,10 @@
       }
     ]
   },
+  "jest": {
+    "setupFilesAfterEnv": ["jest-enzyme"],
+    "testEnvironment": "enzyme"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
