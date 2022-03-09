@@ -18,7 +18,7 @@ export default function ExpenseForm({ addToExpenses }) {
     inputRef.current.focus(); //This sets the focus back to the title input
   };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} aria-label="Add new expenses">
       <label>
         Title:
         <input
@@ -52,7 +52,7 @@ export default function ExpenseForm({ addToExpenses }) {
           />
         </label>
       </p>
-      <input type="submit" value="Add expense" />
+      <button>Add expense</button>
     </Form>
   );
 }
@@ -75,7 +75,7 @@ const Form = styled.form.attrs(() => ({ autocomplete: 'off' }))`
     -webkit-appearance: none;
     -moz-appearance: textfield;
   }
-  & > input {
+  & > button {
     justify-content: center;
     width: 8rem;
     position: relative;
