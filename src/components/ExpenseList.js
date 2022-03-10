@@ -55,7 +55,6 @@ export default function ExpenseList({ expenses, setExpenses }) {
 
 const Wrapper = styled.section`
   background: lightgray;
-  margin-bottom: 11rem;
 `;
 const TotalExpenses = styled.section`
   position: sticky;

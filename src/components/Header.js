@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export default function Header() {
+export default function Header({ headerText }) {
   return (
     <StyledHeader>
-      <h1>SplitPal</h1>
+      <h1>{headerText}</h1>
     </StyledHeader>
   );
 }

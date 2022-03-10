@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ExpenseForm({ addToExpenses }) {
   const [inputValue, setInputValue] = useState({ title: '', amount: '' });
   const inputRef = useRef(null);
+  const navigate = useNavigate();
   const handleSubmit = e => {
     e.preventDefault();
+
     addToExpenses(prevExpenses => [
       ...prevExpenses,
       {
@@ -16,6 +19,8 @@ export default function ExpenseForm({ addToExpenses }) {
     ]);
     setInputValue({ title: '', amount: '' });
     inputRef.current.focus(); //This sets the focus back to the title input
+    console.log('Expense has been added');
+    navigate(`/`);
   };
   return (
     <Form

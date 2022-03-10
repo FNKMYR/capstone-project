@@ -1,27 +1,34 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import Header from './components/Header.js';
-import ExpenseList from './components/ExpenseList.js';
-import ExpenseForm from './components/ExpenseForm.js';
+import { Routes, Route } from 'react-router-dom';
+import ExpensesPage from './pages/ExpensesPage.js';
+import AddExpensePage from './pages/AddExpensePage.js';
+import SampleData from './data/sampleData.js';
 
 function App() {
-  const [expenses, setExpenses] = useState([
-    { title: 'Chinese food', amount: 20.0 },
-    { title: 'Taxi', amount: 15.74 },
-  ]);
+  const [expenses, setExpenses] = useState(SampleData);
   return (
-    <Grid>
-      <Header />
-      <ExpenseList
-        expenses={expenses}
-        setExpenses={value => setExpenses(value)}
-      />
-      <ExpenseForm addToExpenses={value => setExpenses(value)} />
-    </Grid>
+    <AppGrid>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ExpensesPage
+              expenses={expenses}
+              setExpenses={setExpenses}
+            ></ExpensesPage>
+          }
+        ></Route>
+        <Route
+          path="/add"
+          element={<AddExpensePage setExpenses={value => setExpenses(value)} />}
+        ></Route>
+      </Routes>
+    </AppGrid>
   );
 }
 
-const Grid = styled.section`
+const AppGrid = styled.div`
   display: grid;
 `;
 
