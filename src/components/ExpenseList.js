@@ -31,21 +31,23 @@ export default function ExpenseList({ expenses, setExpenses }) {
         <p>{expenseFormatter(totalExpenses)}</p>
       </TotalExpenses>
       <Scrollarea>
-        {expenses.map((expense, index) => (
-          <Expense
-            key={index}
-            title={expense.title}
-            amount={expenseFormatter(expense.amount)}
-            deleteExpense={() =>
-              //This is for the delete button
-              setExpenses(
-                expenses
-                  .slice(0, index)
-                  .concat(expenses.slice(index + 1, expenses.length + 1))
-              )
-            }
-          />
-        ))}
+        {expenses
+          .map((expense, index) => (
+            <Expense
+              key={index}
+              title={expense.title}
+              amount={expenseFormatter(expense.amount)}
+              deleteExpense={() =>
+                //This is for the delete button
+                setExpenses(
+                  expenses
+                    .slice(0, index)
+                    .concat(expenses.slice(index + 1, expenses.length + 1))
+                )
+              }
+            />
+          ))
+          .reverse()}
       </Scrollarea>
     </Wrapper>
   );
@@ -53,6 +55,7 @@ export default function ExpenseList({ expenses, setExpenses }) {
 
 const Wrapper = styled.section`
   background: lightgray;
+  margin-bottom: 11rem;
 `;
 const TotalExpenses = styled.section`
   position: sticky;

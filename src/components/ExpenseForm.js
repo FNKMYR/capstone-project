@@ -71,8 +71,10 @@ const Form = styled.form`
   bottom: 0;
   width: 100%;
   background-color: darkgray;
+  border-top: 2px solid black;
   font-weight: bold;
   font-size: 1rem;
+  height: 11rem;
 
   & label {
     display: grid;
