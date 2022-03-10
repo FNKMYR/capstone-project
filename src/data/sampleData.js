@@ -144,22 +144,27 @@ const sampleData = [
   {
     title: 'deserunt occaecat qui',
     amount: 31.28,
+    date: '2022-03-10',
   },
   {
     title: 'sint elit aliqua',
     amount: 71.76,
+    date: '2022-03-10',
   },
   {
     title: 'sunt non duis',
     amount: 79.89,
+    date: '2022-03-10',
   },
   {
     title: 'ullamco duis aute',
     amount: 61.21,
+    date: '2022-03-10',
   },
   {
     title: 'do dolore dolore',
     amount: 52.13,
+    date: '2022-03-10',
   },
 ];
 

@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ExpenseForm({ addToExpenses }) {
-  const [inputValue, setInputValue] = useState({ title: '', amount: '' });
+  const [inputValue, setInputValue] = useState({
+    title: '',
+    amount: '',
+  });
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const handleSubmit = e => {
@@ -15,6 +18,7 @@ export default function ExpenseForm({ addToExpenses }) {
       {
         title: inputValue.title,
         amount: inputValue.amount,
+        date: inputValue.date,
       },
     ]);
     setInputValue({ title: '', amount: '' });
@@ -65,6 +69,22 @@ export default function ExpenseForm({ addToExpenses }) {
             }
           />
         </label>
+        <label>
+          Date:
+          <input
+            type="date"
+            name="date"
+            required={true}
+            value={inputValue.date}
+            defaultValue={new Date().toISOString().split('T')[0]}
+            onChange={event =>
+              setInputValue({
+                ...inputValue,
+                date: event.target.value,
+              })
+            }
+          />
+        </label>
       </p>
       <button>Add expense</button>
     </Form>
@@ -72,14 +92,12 @@ export default function ExpenseForm({ addToExpenses }) {
 }
 
 const Form = styled.form`
-  position: fixed;
-  bottom: 0;
   width: 100%;
   background-color: darkgray;
   border-top: 2px solid black;
   font-weight: bold;
   font-size: 1rem;
-  height: 11rem;
+  height: 100%;
 
   & label {
     display: grid;

@@ -7,7 +7,7 @@ import ExpenseList from '../components/ExpenseList.js';
 export default function ExpensesPage({ expenses, setExpenses }) {
   return (
     <Wrapper>
-      <Header headerText="SplitPal" />
+      <Header headerText="SplitPal" backButtonVisibility="hidden" />
       <ExpenseList
         expenses={expenses}
         setExpenses={value => setExpenses(value)}

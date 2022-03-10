@@ -11,4 +11,7 @@ export default function AddExpensePage({ setExpenses }) {
   );
 }
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  height: 100vh;
+  overflow: hidden;
+`;
