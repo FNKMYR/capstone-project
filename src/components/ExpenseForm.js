@@ -18,13 +18,19 @@ export default function ExpenseForm({ addToExpenses }) {
     inputRef.current.focus(); //This sets the focus back to the title input
   };
   return (
-    <Form onSubmit={handleSubmit} aria-label="Add new expenses">
+    <Form
+      onSubmit={handleSubmit}
+      aria-label="Add new expenses"
+      autoComplete="new-password" //Apperently this prevents auto-complete. Only using autoComplete="off" did not work
+    >
       <label>
         Title:
         <input
           type="text"
           name="title"
           required={true}
+          autoComplete="off"
+          maxlength="30"
           placeholder="What did you spend money for?"
           value={inputValue.title}
           ref={inputRef}
@@ -38,9 +44,12 @@ export default function ExpenseForm({ addToExpenses }) {
           Amount (€):
           <input
             type="text"
+            inputmode="numeric"
             name="amount"
             required={true}
+            autoComplete="off"
             pattern="^\d*(\.\d{0,2})?$"
+            maxlength="9"
             value={inputValue.amount}
             placeholder="Use '.' as a decimal separator, e.g. 12.45"
             onChange={event =>
@@ -57,8 +66,8 @@ export default function ExpenseForm({ addToExpenses }) {
   );
 }
 
-const Form = styled.form.attrs(() => ({ autocomplete: 'off' }))`
-  position: absolute;
+const Form = styled.form`
+  position: fixed;
   bottom: 0;
   width: 100%;
   background-color: darkgray;
