@@ -100,6 +100,8 @@ export default function ExpenseForm({ addToExpenses }) {
 }
 
 const Form = styled.form`
+  display: flex;
+  flex-direction: column;
   background-color: darkgray;
   border-top: 2px solid black;
   font-weight: bold;
