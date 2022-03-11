@@ -7,6 +7,7 @@ export default function ExpenseForm({ addToExpenses }) {
   const [inputValue, setInputValue] = useState({
     title: '',
     amount: '',
+    date: new Date().toISOString().split('T')[0],
   });
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -76,7 +77,6 @@ export default function ExpenseForm({ addToExpenses }) {
             name="date"
             required={true}
             value={inputValue.date}
-            defaultValue={new Date().toISOString().split('T')[0]}
             onChange={event =>
               setInputValue({
                 ...inputValue,

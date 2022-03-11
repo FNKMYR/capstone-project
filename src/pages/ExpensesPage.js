@@ -8,6 +8,11 @@ export default function ExpensesPage({ expenses, setExpenses }) {
   return (
     <Wrapper>
       <Header headerText="SplitPal" backButtonVisibility="hidden" />
+      <SubHeader>
+        <Button onClick={() => setExpenses([])}>
+          For dev purposes: Delete all entries
+        </Button>
+      </SubHeader>
       <ExpenseList
         expenses={expenses}
         setExpenses={value => setExpenses(value)}
@@ -40,4 +45,9 @@ const StyledButton = styled(Button)`
   position: fixed;
   bottom: 1rem;
   left: calc(50% - 2rem);
+`;
+
+const SubHeader = styled.section`
+  height: 2rem;
+  width: 100%;
 `;
