@@ -6,12 +6,10 @@ import GlobalStyles from './GlobalStyles.js';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <GlobalStyles />
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <GlobalStyles />
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function

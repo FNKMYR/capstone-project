@@ -5,11 +5,7 @@ import { Link } from 'react-router-dom';
 export default function Header({ headerText, backButtonVisibility }) {
   return (
     <StyledHeader>
-      <StyledButton
-        as={Link}
-        to="/"
-        backButtonVisibility={backButtonVisibility}
-      >
+      <StyledButton as={Link} to="/" visibility={backButtonVisibility}>
         Back
       </StyledButton>
       <h1>{headerText}</h1>
@@ -31,7 +27,7 @@ const StyledHeader = styled.header`
 `;
 
 const StyledButton = styled(Button)`
-  visibility: ${props => props.backButtonVisibility};
+  visibility: ${props => props.visibility};
   height: 3rem;
   width: 3rem;
   margin: 8px auto auto 8px;

@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function ExpenseForm({ addToExpenses }) {
   const [inputValue, setInputValue] = useState({
     title: '',
+    description: '',
     amount: '',
     date: new Date().toISOString().split('T')[0],
   });
-  const inputRef = useRef(null);
   const navigate = useNavigate();
   const handleSubmit = e => {
     e.preventDefault();
@@ -19,11 +18,10 @@ export default function ExpenseForm({ addToExpenses }) {
       {
         title: inputValue.title,
         amount: inputValue.amount,
+        description: inputValue.description,
         date: inputValue.date,
       },
     ]);
-    setInputValue({ title: '', amount: '' });
-    inputRef.current.focus(); //This sets the focus back to the title input
     console.log('Expense has been added');
     navigate(`/`);
   };
@@ -40,12 +38,27 @@ export default function ExpenseForm({ addToExpenses }) {
           name="title"
           required={true}
           autoComplete="off"
-          maxlength="30"
+          autoFocus
+          maxLength="30"
           placeholder="What did you spend money for?"
           value={inputValue.title}
-          ref={inputRef}
           onChange={event =>
             setInputValue({ ...inputValue, title: event.target.value })
+          }
+        />
+      </label>
+      <label>
+        Description (optional):
+        <input
+          type="text"
+          name="description"
+          required={false}
+          autoComplete="off"
+          maxLength="200"
+          placeholder="Add a description or comment"
+          value={inputValue.description}
+          onChange={event =>
+            setInputValue({ ...inputValue, description: event.target.value })
           }
         />
       </label>
@@ -54,12 +67,12 @@ export default function ExpenseForm({ addToExpenses }) {
           Amount (€):
           <input
             type="text"
-            inputmode="numeric"
+            inputMode="numeric"
             name="amount"
             required={true}
             autoComplete="off"
             pattern="^\d*(\.\d{0,2})?$"
-            maxlength="9"
+            maxLength="9"
             value={inputValue.amount}
             placeholder="Use '.' as a decimal separator, e.g. 12.45"
             onChange={event =>
