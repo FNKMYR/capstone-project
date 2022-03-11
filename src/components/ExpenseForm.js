@@ -31,93 +31,86 @@ export default function ExpenseForm({ addToExpenses }) {
       aria-label="Add new expenses"
       autoComplete="new-password" //Apperently this prevents auto-complete. Only using autoComplete="off" did not work
     >
-      <label>
-        Title:
-        <input
-          type="text"
-          name="title"
-          required={true}
-          autoComplete="off"
-          autoFocus
-          maxLength="30"
-          placeholder="What did you spend money for?"
-          value={inputValue.title}
-          onChange={event =>
-            setInputValue({ ...inputValue, title: event.target.value })
-          }
-        />
-      </label>
-      <label>
-        Description (optional):
-        <input
-          type="text"
-          name="description"
-          required={false}
-          autoComplete="off"
-          maxLength="200"
-          placeholder="Add a description or comment"
-          value={inputValue.description}
-          onChange={event =>
-            setInputValue({ ...inputValue, description: event.target.value })
-          }
-        />
-      </label>
-      <p>
-        <label>
-          Amount (€):
-          <input
-            type="text"
-            inputMode="numeric"
-            name="amount"
-            required={true}
-            autoComplete="off"
-            pattern="^\d*(\.\d{0,2})?$"
-            maxLength="9"
-            value={inputValue.amount}
-            placeholder="Use '.' as a decimal separator, e.g. 12.45"
-            onChange={event =>
-              setInputValue({
-                ...inputValue,
-                amount: event.target.value,
-              })
-            }
-          />
-        </label>
-        <label>
-          Date:
-          <input
-            type="date"
-            name="date"
-            required={true}
-            value={inputValue.date}
-            onChange={event =>
-              setInputValue({
-                ...inputValue,
-                date: event.target.value,
-              })
-            }
-          />
-        </label>
-      </p>
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        required={true}
+        autoComplete="off"
+        autoFocus
+        maxLength="30"
+        placeholder="What did you spend money for?"
+        value={inputValue.title}
+        onChange={event =>
+          setInputValue({ ...inputValue, title: event.target.value })
+        }
+      />
+      <label for="description">Description (optional):</label>
+
+      <input
+        type="text"
+        name="description"
+        id="description"
+        required={false}
+        autoComplete="off"
+        maxLength="200"
+        placeholder="Add a description or comment"
+        value={inputValue.description}
+        onChange={event =>
+          setInputValue({ ...inputValue, description: event.target.value })
+        }
+      />
+      <label for="amount">Amount (€):</label>
+      <input
+        type="text"
+        name="amount"
+        inputMode="numeric"
+        id="amount"
+        required={true}
+        autoComplete="off"
+        pattern="^\d*(\.\d{0,2})?$"
+        maxLength="9"
+        value={inputValue.amount}
+        placeholder="Use '.' as a decimal separator, e.g. 12.45"
+        onChange={event =>
+          setInputValue({
+            ...inputValue,
+            amount: event.target.value,
+          })
+        }
+      />
+      <label for="date">Date:</label>
+      <input
+        type="date"
+        name="date"
+        id="date"
+        required={true}
+        value={inputValue.date}
+        onChange={event =>
+          setInputValue({
+            ...inputValue,
+            date: event.target.value,
+          })
+        }
+      />
       <button>Add expense</button>
     </Form>
   );
 }
 
 const Form = styled.form`
-  width: 100%;
   background-color: darkgray;
   border-top: 2px solid black;
   font-weight: bold;
   font-size: 1rem;
   height: 100%;
-
-  & label {
-    display: grid;
+  & > * {
     margin-left: 1rem;
+    margin-right: 1rem;
   }
-  & label input {
-    margin-right: auto;
+  & > input {
+    margin-bottom: 1rem;
     width: 90%;
     -webkit-appearance: none;
     -moz-appearance: textfield;
