@@ -36,7 +36,9 @@ export default function ExpenseList({ expenses, setExpenses }) {
             <Expense
               key={index}
               title={expense.title}
+              description={expense.description}
               amount={expenseFormatter(expense.amount)}
+              date={expense.date}
               deleteExpense={() =>
                 //This is for the delete button
                 setExpenses(
@@ -55,7 +57,6 @@ export default function ExpenseList({ expenses, setExpenses }) {
 
 const Wrapper = styled.section`
   background: lightgray;
-  margin-bottom: 11rem;
 `;
 const TotalExpenses = styled.section`
   position: sticky;
