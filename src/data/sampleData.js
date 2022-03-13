@@ -4,24 +4,28 @@ const sampleData = [
     description: 'Chinatown restaurant',
     amount: 20.0,
     date: '2022-03-06',
+    paidfor: ['Jens', 'Max', 'Alex'],
   },
   {
     title: 'Taxi',
     description: 'Ride from hotel to club',
     amount: 15.74,
     date: '2022-03-06',
+    paidfor: ['Jens', 'Max', 'Alex'],
   },
   {
     title: 'esse magna dolore',
     description: 'sit commodo nisi in dolor anim magna non officia qui',
     amount: 79.58,
     date: ' 2022-03-06',
+    paidfor: ['Jens', 'Max', 'Alex'],
   },
   {
     title: 'mollit sit esse',
     description: 'non magna sunt eu ea cupidatat ex non anim esse',
     amount: 71.52,
     date: ' 2022-03-08',
+    paidfor: ['Jens', 'Max', 'Alex'],
   },
   {
     title: 'exercitation proident exercitation',

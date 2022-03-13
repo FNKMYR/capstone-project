@@ -8,6 +8,8 @@ export default function Expense({
   description,
   amount,
   date,
+  paidby,
+  paidfor,
 }) {
   const handleClick = e => {
     e.preventDefault();
@@ -19,6 +21,8 @@ export default function Expense({
       <LeftSide>
         <h4>{title}</h4>
         <span>{description}</span>
+        <span>Paid by: {paidby}</span>
+        <span>Paid for: {paidfor.join()}</span>
       </LeftSide>
       <Button onClick={handleClick}>DEL</Button>
       <RightSide>
