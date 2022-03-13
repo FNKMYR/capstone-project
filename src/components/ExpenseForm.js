@@ -48,7 +48,7 @@ export default function ExpenseForm({ addToExpenses }) {
       />
       <label for="description">Description (optional):</label>
 
-      <input
+      <textarea
         type="text"
         name="description"
         id="description"
@@ -111,8 +111,10 @@ const Form = styled.form`
     margin-left: 1rem;
     margin-right: 1rem;
   }
-  & > input {
+  & > input,
+  textarea {
     margin-bottom: 1rem;
+    line-height: 3rem;
     width: 90%;
     -webkit-appearance: none;
     -moz-appearance: textfield;
