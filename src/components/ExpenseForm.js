@@ -23,6 +23,7 @@ export default function ExpenseForm({ members, addToExpenses }) {
         description: inputValue.description,
         date: inputValue.date,
         paidby: inputValue.paidby,
+        paidfor: inputValue.paidfor,
       },
     ]);
     navigate(`/`);

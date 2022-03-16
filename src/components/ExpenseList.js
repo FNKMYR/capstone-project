@@ -40,7 +40,7 @@ export default function ExpenseList({ expenses, setExpenses }) {
               amount={expenseFormatter(expense.amount)}
               date={expense.date}
               paidby={expense.paidby}
-              paidfor={[expense.paidfor]}
+              paidfor={expense.paidfor}
               deleteExpense={() =>
                 //This is for the delete button
                 setExpenses(

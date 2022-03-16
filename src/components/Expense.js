@@ -15,14 +15,20 @@ export default function Expense({
     e.preventDefault();
     deleteExpense(currExpenses => currExpenses.slice[index]);
   };
-
   return (
     <Wrapper>
       <LeftSide>
         <h4>{title}</h4>
         <span>{description}</span>
         <span>Paid by: {paidby}</span>
-        <span>Paid for: {paidfor.join()}</span>
+        <span>
+          Paid for:{' '}
+          {paidfor
+            ? Array.isArray(paidfor)
+              ? paidfor.join(', ')
+              : paidfor
+            : ''}
+        </span>
       </LeftSide>
       <Button onClick={handleClick}>DEL</Button>
       <RightSide>
