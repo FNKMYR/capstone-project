@@ -12,18 +12,32 @@ export default function ExpensesPage({
   setMembers,
 }) {
   const [inputNames, setInputNames] = useState('');
+  const [inputWarning, setInputWarning] = useState('');
+
   const handleMemberSubmit = event => {
     event.preventDefault();
-    const memberArray = inputNames.split(',').map(function (name) {
-      return name.trim();
-    });
+    const memberArray = inputNames
+      .split(',')
+      .map(function (name) {
+        return name.trim();
+      })
+      .filter(name => {
+        return name !== '';
+      });
     console.log(memberArray);
-    setMembers(memberArray);
+    if (memberArray.length > 0) {
+      setMembers(memberArray);
+      setInputWarning('');
+    } else {
+      setMembers([]);
+      setInputWarning('Invalid input');
+    }
   };
   return (
     <Wrapper>
       <Header headerText="SplitPal" backButtonVisibility="hidden" />
-      <SubHeader>
+      <MemberForm>
+        {/*Will source this out as a component later on*/}
         <form onSubmit={handleMemberSubmit} aria-label="Set or edit members">
           <label htmlFor="memberinput">
             Member names, separated by a comma:
@@ -33,21 +47,21 @@ export default function ExpensesPage({
             name="memberinput"
             id="memberinput"
             autoComplete="off"
+            minLength={1}
             value={inputNames}
             onChange={event => setInputNames(event.target.value)}
           />
           <button>Submit</button>
+          {inputWarning && <Warning> {inputWarning}</Warning>}
         </form>
         <p>
-          Current members:{' '}
-          <span style={{ fontWeight: 'bold' }}>{members.join(', ')}</span>{' '}
-          {/*Using inline styling here as it's only temporary*/}
+          Current members: <BoldSpan>{members.join(', ')}</BoldSpan>{' '}
         </p>
         <hr />
         <Button onClick={() => setExpenses([])}>
           For dev purposes: Delete all expense entries
         </Button>
-      </SubHeader>
+      </MemberForm>
       <ExpenseList
         expenses={expenses}
         setExpenses={value => setExpenses(value)}
@@ -82,7 +96,15 @@ const StyledButton = styled(Button)`
   left: calc(50% - 2rem);
 `;
 
-const SubHeader = styled.section`
+const MemberForm = styled.section`
   height: auto;
   width: 100%;
+`;
+
+const Warning = styled.span`
+  color: red;
+`;
+
+const BoldSpan = styled.span`
+  font-weight: bold;
 `;

@@ -102,66 +102,53 @@ export default function ExpenseForm({ members, addToExpenses }) {
         <p>
           Who was the expense paid <span style={{ color: 'red' }}>by?</span>
         </p>
-        {members.length > 0 ? (
-          members.map((member, index) => (
-            <div key={index}>
-              <label htmlFor={index}>{member}:</label>
-              <input
-                type="radio"
-                name="paidby"
-                id={index}
-                required={true}
-                value={inputValue.paidby}
-                onChange={() =>
-                  setInputValue({
-                    ...inputValue,
-                    paidby: member,
-                  })
-                }
-              />
-            </div>
-          ))
-        ) : (
-          <div style={{ fontStyle: 'italic', fontWeight: 'normal' }}>
-            Please add members on the main page
+
+        {members.map((member, index) => (
+          <div key={index}>
+            <label htmlFor={index}>{member}:</label>
+            <input
+              type="radio"
+              name="paidby"
+              id={index}
+              required={true}
+              value={inputValue.paidby}
+              onChange={() =>
+                setInputValue({
+                  ...inputValue,
+                  paidby: member,
+                })
+              }
+            />
           </div>
-        )}
+        ))}
         <p>
           Who was the expense paid <span style={{ color: 'red' }}>for?</span>
         </p>
-        {members.length > 0 ? (
-          members.map((member, index) => (
-            <div key={index}>
-              <label htmlFor={index}>{member}:</label>
-              <input
-                type="checkbox"
-                name="paidfor"
-                id={index}
-                onChange={event => {
-                  if (event.target.checked) {
-                    if (!inputValue.paidfor.includes(member)) {
-                      setInputValue(() => ({
-                        ...inputValue,
-                        paidfor: [...inputValue.paidfor, member],
-                      }));
-                    }
-                  } else {
+        {members.map((member, index) => (
+          <div key={index}>
+            <label htmlFor={index}>{member}:</label>
+            <input
+              type="checkbox"
+              name="paidfor"
+              id={index}
+              onChange={event => {
+                if (event.target.checked) {
+                  if (!inputValue.paidfor.includes(member)) {
                     setInputValue(() => ({
                       ...inputValue,
-                      paidfor: inputValue.paidfor.filter(
-                        name => name !== member
-                      ),
+                      paidfor: [...inputValue.paidfor, member],
                     }));
                   }
-                }}
-              />
-            </div>
-          ))
-        ) : (
-          <div style={{ fontStyle: 'italic', fontWeight: 'normal' }}>
-            Please add members on the main page
+                } else {
+                  setInputValue(() => ({
+                    ...inputValue,
+                    paidfor: inputValue.paidfor.filter(name => name !== member),
+                  }));
+                }
+              }}
+            />
           </div>
-        )}
+        ))}
         <button>Add expense</button>
       </Form>
     );
