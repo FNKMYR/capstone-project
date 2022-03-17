@@ -1,3 +1,5 @@
+
+export default AddButtonBlue{
 <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_bd_4_758)">
 <circle cx="34" cy="30" r="30" fill="url(#paint0_linear_4_758)"/>
@@ -35,3 +37,4 @@
 </linearGradient>
 </defs>
 </svg>
+}

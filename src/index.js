@@ -8,8 +8,8 @@ import Theme from './Theme.js';
 
 ReactDOM.render(
   <BrowserRouter>
+    <GlobalStyles />
     <Theme>
-      <GlobalStyles />
       <App />
     </Theme>
   </BrowserRouter>,
