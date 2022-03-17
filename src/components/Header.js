@@ -43,6 +43,11 @@ const StyledButton = styled(Button)`
   position: absolute;
   top: 0.6rem;
   left: 0.6rem;
+
+  > svg {
+    -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
 `;
 
 const StyledH1 = styled.h1`

@@ -65,8 +65,8 @@ const TotalExpenses = styled.section`
   top: 0;
   display: flex;
   justify-content: space-between;
-  background: black;
-  color: white;
+  background: ${props => props.theme.color.secondaryDark};
+  color: ${props => props.theme.color.textSecondary};
 `;
 
 const Scrollarea = styled.section`
