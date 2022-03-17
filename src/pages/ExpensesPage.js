@@ -3,16 +3,21 @@ import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import Header from '../components/Header.js';
 import ExpenseList from '../components/ExpenseList.js';
+import MemberForm from '../components/MemberForm.js';
 
-export default function ExpensesPage({ expenses, setExpenses }) {
+export default function ExpensesPage({
+  expenses,
+  setExpenses,
+  members,
+  setMembers,
+}) {
   return (
     <Wrapper>
       <Header headerText="SplitPal" backButtonVisibility="hidden" />
-      <SubHeader>
-        <Button onClick={() => setExpenses([])}>
-          For dev purposes: Delete all entries
-        </Button>
-      </SubHeader>
+      <MemberForm members={members} setMembers={setMembers} />
+      <Button onClick={() => setExpenses([])}>
+        For dev purposes: Delete all expense entries
+      </Button>
       <ExpenseList
         expenses={expenses}
         setExpenses={value => setExpenses(value)}
@@ -45,9 +50,4 @@ const StyledButton = styled(Button)`
   position: fixed;
   bottom: 1rem;
   left: calc(50% - 2rem);
-`;
-
-const SubHeader = styled.section`
-  height: 2rem;
-  width: 100%;
 `;

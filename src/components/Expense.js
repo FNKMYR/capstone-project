@@ -8,17 +8,27 @@ export default function Expense({
   description,
   amount,
   date,
+  paidBy,
+  paidFor,
 }) {
   const handleClick = e => {
     e.preventDefault();
     deleteExpense(currExpenses => currExpenses.slice[index]);
   };
-
   return (
     <Wrapper>
       <LeftSide>
         <h4>{title}</h4>
         <span>{description}</span>
+        <span>Paid by: {paidBy}</span>
+        <span>
+          Paid for:{' '}
+          {paidFor
+            ? Array.isArray(paidFor)
+              ? paidFor.join(', ')
+              : paidFor
+            : ''}
+        </span>
       </LeftSide>
       <Button onClick={handleClick}>DEL</Button>
       <RightSide>
