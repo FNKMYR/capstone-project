@@ -8,22 +8,16 @@ export default function ExpenseForm({ members, addToExpenses }) {
     description: '',
     amount: '',
     date: new Date().toISOString().split('T')[0],
-    paidby: '',
-    paidfor: [],
+    paidBy: '',
+    paidFor: [],
   });
   const navigate = useNavigate();
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(inputValue);
     addToExpenses(prevExpenses => [
       ...prevExpenses,
       {
-        title: inputValue.title,
-        amount: inputValue.amount,
-        description: inputValue.description,
-        date: inputValue.date,
-        paidby: inputValue.paidby,
-        paidfor: inputValue.paidfor,
+        ...inputValue,
       },
     ]);
     navigate(`/`);
@@ -108,14 +102,14 @@ export default function ExpenseForm({ members, addToExpenses }) {
             <label htmlFor={index}>{member}:</label>
             <input
               type="radio"
-              name="paidby"
+              name="paidBy"
               id={index}
               required={true}
-              value={inputValue.paidby}
+              value={inputValue.paidBy}
               onChange={() =>
                 setInputValue({
                   ...inputValue,
-                  paidby: member,
+                  paidBy: member,
                 })
               }
             />
@@ -129,20 +123,20 @@ export default function ExpenseForm({ members, addToExpenses }) {
             <label htmlFor={index}>{member}:</label>
             <input
               type="checkbox"
-              name="paidfor"
+              name="paidFor"
               id={index}
               onChange={event => {
                 if (event.target.checked) {
-                  if (!inputValue.paidfor.includes(member)) {
+                  if (!inputValue.paidFor.includes(member)) {
                     setInputValue(() => ({
                       ...inputValue,
-                      paidfor: [...inputValue.paidfor, member],
+                      paidFor: [...inputValue.paidFor, member],
                     }));
                   }
                 } else {
                   setInputValue(() => ({
                     ...inputValue,
-                    paidfor: inputValue.paidfor.filter(name => name !== member),
+                    paidFor: inputValue.paidFor.filter(name => name !== member),
                   }));
                 }
               }}

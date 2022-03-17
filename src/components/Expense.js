@@ -8,8 +8,8 @@ export default function Expense({
   description,
   amount,
   date,
-  paidby,
-  paidfor,
+  paidBy,
+  paidFor,
 }) {
   const handleClick = e => {
     e.preventDefault();
@@ -20,13 +20,13 @@ export default function Expense({
       <LeftSide>
         <h4>{title}</h4>
         <span>{description}</span>
-        <span>Paid by: {paidby}</span>
+        <span>Paid by: {paidBy}</span>
         <span>
           Paid for:{' '}
-          {paidfor
-            ? Array.isArray(paidfor)
-              ? paidfor.join(', ')
-              : paidfor
+          {paidFor
+            ? Array.isArray(paidFor)
+              ? paidFor.join(', ')
+              : paidFor
             : ''}
         </span>
       </LeftSide>

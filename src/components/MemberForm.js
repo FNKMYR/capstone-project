@@ -16,7 +16,6 @@ export default function MemberForm({ members, setMembers }) {
       .filter(name => {
         return name !== '';
       });
-    console.log(memberArray);
     if (memberArray.length > 0) {
       setMembers(memberArray);
       setInputWarning('');
