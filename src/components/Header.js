@@ -19,7 +19,7 @@ export default function Header({ headerText, backButtonVisibility }) {
 }
 
 const StyledHeader = styled.header`
-  background: ${props => props.theme.color.secondaryMedium};
+  background: ${props => props.theme.color.gradientSecondaryDark};
   height: 7.5rem;
   width: 100%;
   position: relative;
