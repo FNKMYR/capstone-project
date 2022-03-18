@@ -12,7 +12,8 @@ export default createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Saira Semi Condensed', sans-serif;
+    font-family: 'Roboto', 'Saira Semi Condensed', sans-serif;
+    //'Saira Semi Condensed' as an alternative
     color: ${props => props.theme.color.textPrimaryDark};
     font-size: 1.6rem;
   }

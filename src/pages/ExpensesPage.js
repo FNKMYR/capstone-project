@@ -38,5 +38,5 @@ const Wrapper = styled.section`
 const StyledButton = styled(Button)`
   position: fixed;
   bottom: 1rem;
-  left: calc(50% - 2rem);
+  left: calc(50% - 3rem);
 `;

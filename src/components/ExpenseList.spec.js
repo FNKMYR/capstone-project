@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ExpenseList from './ExpenseList.js';
+import Theme from '../Theme.js';
 
 describe('ExpenseList', () => {
   it('renders the expenses-array entries into expense list items', () => {
@@ -10,7 +11,9 @@ describe('ExpenseList', () => {
     ];
     render(
       <MemoryRouter>
-        <ExpenseList expenses={expenses} />
+        <Theme>
+          <ExpenseList expenses={expenses} />
+        </Theme>
       </MemoryRouter>
     );
 
