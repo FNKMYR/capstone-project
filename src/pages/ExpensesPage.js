@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import Header from '../components/Header.js';
+import AddButton from '../images/addButtonBlue.svg';
 import ExpenseList from '../components/ExpenseList.js';
+import Header from '../components/Header.js';
 import MemberForm from '../components/MemberForm.js';
-import { ReactComponent as AddButton } from '../images/addButtonBlue.svg';
 
 export default function ExpensesPage({
   expenses,
@@ -24,7 +24,7 @@ export default function ExpensesPage({
         setExpenses={value => setExpenses(value)}
       />
       <StyledButton as={Link} to="/add">
-        <AddButton />
+        <img src={AddButton} alt="Add a new expense"></img>
       </StyledButton>
     </Wrapper>
   );
