@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import Header from '../components/Header.js';
+import AddButton from '../images/addButtonBlue.svg';
 import ExpenseList from '../components/ExpenseList.js';
+import Header from '../components/Header.js';
 import MemberForm from '../components/MemberForm.js';
 
 export default function ExpensesPage({
@@ -16,14 +17,14 @@ export default function ExpensesPage({
       <Header headerText="SplitPal" backButtonVisibility="hidden" />
       <MemberForm members={members} setMembers={setMembers} />
       <Button onClick={() => setExpenses([])}>
-        For dev purposes: Delete all expense entries
+        For dev purposes: Delete all expense entries.
       </Button>
       <ExpenseList
         expenses={expenses}
         setExpenses={value => setExpenses(value)}
       />
       <StyledButton as={Link} to="/add">
-        +
+        <img src={AddButton} alt="Add a new expense"></img>
       </StyledButton>
     </Wrapper>
   );
@@ -35,19 +36,7 @@ const Wrapper = styled.section`
 `;
 
 const StyledButton = styled(Button)`
-  height: 4rem;
-  width: 4rem;
-  border: 5px solid black;
-  border-radius: 2rem;
-  font-size: 4rem;
-  text-decoration: none;
-  color: black;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   position: fixed;
   bottom: 1rem;
-  left: calc(50% - 2rem);
+  left: calc(50% - 3rem);
 `;

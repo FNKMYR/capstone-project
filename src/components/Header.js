@@ -1,45 +1,56 @@
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as BackButtonSvg } from '../images/backButton.svg';
 
 export default function Header({ headerText, backButtonVisibility }) {
   return (
     <StyledHeader>
-      <StyledButton as={Link} to="/" visibility={backButtonVisibility}>
-        Back
-      </StyledButton>
-      <h1>{headerText}</h1>
+      <ButtonContainer>
+        <StyledButton as={Link} to="/" visibility={backButtonVisibility}>
+          <BackButtonSvg />
+        </StyledButton>
+      </ButtonContainer>
+      <HeaderContainer>
+        <StyledH1>{headerText}</StyledH1>
+      </HeaderContainer>
     </StyledHeader>
   );
 }
 
 const StyledHeader = styled.header`
-  border: 1px solid black;
+  background: ${props => props.theme.color.gradientSecondaryDark};
+  height: 7.5rem;
+  width: 100%;
+  position: relative;
+  top: 0;
+`;
 
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+const HeaderContainer = styled.div`
+  height: 100%;
+  display: flex;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
   align-items: center;
-
-  & > * {
-    display: flex;
-    justify-content: center;
-  }
 `;
 
 const StyledButton = styled(Button)`
   visibility: ${props => props.visibility};
   height: 3rem;
-  width: 3rem;
-  margin: 8px auto auto 8px;
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
 
-  border: 5px solid black;
-  border-radius: 2rem;
-  font-size: 0.8rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
+  > svg {
+    -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
+`;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const StyledH1 = styled.h1`
+  color: ${props => props.theme.color.textSecondary};
+  margin: auto;
 `;

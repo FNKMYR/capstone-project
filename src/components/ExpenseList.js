@@ -57,16 +57,19 @@ export default function ExpenseList({ expenses, setExpenses }) {
   );
 }
 
-const Wrapper = styled.section`
-  background: lightgray;
-`;
+const Wrapper = styled.section``;
+
 const TotalExpenses = styled.section`
   position: sticky;
   top: 0;
   display: flex;
   justify-content: space-between;
-  background: black;
-  color: white;
+  background: ${props => props.theme.color.secondaryDark};
+  color: ${props => props.theme.color.textSecondary};
+
+  > * {
+    margin: 0.5rem;
+  }
 `;
 
 const Scrollarea = styled.section`

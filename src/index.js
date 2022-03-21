@@ -1,14 +1,17 @@
+import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
 import App from './App';
 import GlobalStyles from './GlobalStyles.js';
-import reportWebVitals from './reportWebVitals';
+import Theme from './Theme.js';
 
 ReactDOM.render(
   <BrowserRouter>
-    <GlobalStyles />
-    <App />
+    <Theme>
+      <GlobalStyles />
+      <App />
+    </Theme>
   </BrowserRouter>,
   document.getElementById('root')
 );

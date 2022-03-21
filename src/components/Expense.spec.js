@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import Theme from '../Theme.js';
 import Expense from './Expense.js';
 
 describe('Expense', () => {
   it('renders title and amount', () => {
     render(
       <MemoryRouter>
-        <Expense title="Restaurant visit" amount="75.70" />
+        <Theme>
+          <Expense title="Restaurant visit" amount="75.70" />
+        </Theme>
       </MemoryRouter>
     );
 
