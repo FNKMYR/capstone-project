@@ -55,7 +55,7 @@ export default function ExpenseUseForm({ members, addToExpenses }) {
             <StyledInput
               id="amount"
               placeholder=" "
-              autocomplete="off"
+              autocomplete="off" //if anyone has any idea why this input still opens an autocomplete window on mobile please let me know
               {...register('amount', {
                 required: 'Please enter an amount.',
                 pattern: {
@@ -77,7 +77,6 @@ export default function ExpenseUseForm({ members, addToExpenses }) {
               id="date"
               {...register('date', {
                 required: 'Please enter a date.',
-                valueAsDate: true,
               })}
             />
             <StyledLabelDate htmlFor="date">Date</StyledLabelDate>
@@ -158,7 +157,7 @@ const Form = styled.form`
   padding: 0 2rem 0 2rem;
   border-radius: 3rem;
   overflow-y: scroll;
-  background: ${props => props.theme.color.secondaryMedium};
+  background: ${props => props.theme.color.gradientSecondaryMedium};
 
   // Scrollbar caused issues with the right-side border radius
   -ms-overflow-style: none; /* IE and Edge */
@@ -168,9 +167,15 @@ const Form = styled.form`
   }
 `;
 
-//Sections
+const Error = styled.section`
+  font-size: 2rem;
+  color: ${props => props.theme.color.complementaryDark};
 
-//Inputs
+  p {
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+  }
+`;
 
 const StyledInput = styled.input`
   width: 100%;
@@ -402,16 +407,5 @@ const StyledButton = styled.button`
   }
   :active {
     opacity: 70%;
-  }
-`;
-
-const Error = styled.section`
-  font-style: italic;
-  font-size: 2rem;
-  color: ${props => props.theme.color.complementaryLight};
-
-  p {
-    margin-top: 0.3rem;
-    margin-bottom: 0;
   }
 `;
