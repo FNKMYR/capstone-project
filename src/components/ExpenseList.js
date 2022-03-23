@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Expense from './Expense.js';
 
-export default function ExpenseList({ expenses, setExpenses }) {
+export default function ExpenseList({ expenses, setExpenses, setEditExpense }) {
   const totalExpenses = Number(
     expenses
       .map(expense => expense.amount)
@@ -35,6 +35,8 @@ export default function ExpenseList({ expenses, setExpenses }) {
           .map((expense, index) => (
             <Expense
               key={index}
+              expense={expense}
+              setEditExpense={setEditExpense}
               title={expense.title}
               description={expense.description}
               amount={expenseFormatter(expense.amount)}

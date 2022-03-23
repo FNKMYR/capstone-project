@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 export default function Expense({
+  expense,
+  setEditExpense,
   deleteExpense,
   index,
   title,
@@ -10,6 +13,13 @@ export default function Expense({
   paidBy,
   paidFor,
 }) {
+  const navigate = useNavigate();
+  function handleClick() {
+    setEditExpense(expense);
+    navigate(`/edit`);
+    console.log(expense);
+  }
+
   return (
     <Wrapper>
       <LeftSide>
@@ -19,6 +29,7 @@ export default function Expense({
           <StyledSpanMedium>{paidBy}</StyledSpanMedium>
         </div>
       </LeftSide>
+      <button onClick={handleClick}>Click me</button>
       <RightSide>
         <StyledSpan20>{amount}</StyledSpan20>
         <StyledSpanMedium>{date}</StyledSpanMedium>

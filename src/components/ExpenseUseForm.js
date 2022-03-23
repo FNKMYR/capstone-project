@@ -2,13 +2,26 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-export default function ExpenseUseForm({ members, addToExpenses }) {
+export default function ExpenseUseForm({
+  members,
+  addToExpenses,
+  editExpense,
+}) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: { date: new Date().toISOString().split('T')[0] },
+    defaultValues: editExpense
+      ? {
+          title: editExpense.title,
+          description: editExpense.description,
+          amount: editExpense.amount,
+          date: editExpense.date,
+          paidBy: editExpense.paidBy,
+          paidFor: editExpense.paidFor,
+        }
+      : { date: new Date().toISOString().split('T')[0] },
   });
   const navigate = useNavigate();
   const onSubmit = data => {

@@ -2,13 +2,14 @@ import styled from 'styled-components';
 import Header from '../components/Header.js';
 import ExpenseUseForm from '../components/ExpenseUseForm.js';
 
-export default function AddExpensePage({ members, setExpenses }) {
+export default function EditExpensePage({ members, setExpenses, editExpense }) {
   return (
     <Wrapper>
-      <Header headerText="Add a new expense" />
+      <Header headerText="Edit expense" />
       <ExpenseUseForm
         members={members}
         addToExpenses={value => setExpenses(value)}
+        editExpense={editExpense}
       />
     </Wrapper>
   );
