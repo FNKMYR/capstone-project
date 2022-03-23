@@ -147,8 +147,14 @@ const Form = styled.form`
   padding: 0 2rem 0 2rem;
   border-radius: 3rem;
   overflow-y: scroll;
-
   background: ${props => props.theme.color.secondaryMedium};
+
+  // Scrollbar caused issues with the right-side border radius
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  ::webkit-scrollbar {
+    display: none;
+  }
 `;
 
 //Sections
