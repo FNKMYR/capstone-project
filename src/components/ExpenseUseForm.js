@@ -21,6 +21,12 @@ export default function ExpenseUseForm({ members, addToExpenses }) {
     return (
       <Wrapper>
         <Form onSubmit={handleSubmit(onSubmit)} autocomplete="off">
+          <Error>{errors.title && <p>{errors.title.message}</p>}</Error>
+          <Error>{errors.amount && <p>{errors.amount.message}</p>}</Error>
+          <Error>{errors.date && <p>{errors.date.message}</p>}</Error>
+          <Error>{errors.paidBy && <p>{errors.paidBy.message}</p>}</Error>
+          <Error>{errors.paidFor && <p>{errors.paidFor.message}</p>}</Error>
+
           <InputContainer>
             <StyledInput
               type="text"
@@ -78,7 +84,11 @@ export default function ExpenseUseForm({ members, addToExpenses }) {
           </InputContainer>
           <InputContainer>
             <StyledSelect
-              {...register('paidBy', { required: true })}
+              {...register('paidBy', {
+                required: 'Please select a member.',
+                validate: value =>
+                  value !== 'default' || 'Please select a member.',
+              })}
               id="paidFor"
               defaultValue="default"
             >
@@ -98,25 +108,22 @@ export default function ExpenseUseForm({ members, addToExpenses }) {
             <CheckboxContainer>
               {members.map((member, index) => (
                 <StyledCheckbox key={index}>
-                  <label htmlFor={index}>
-                    {member}
-                    <StyledCheckboxInput
-                      {...register('paidFor', { required: true })}
-                      type="checkbox"
-                      value={member}
-                      id={index}
-                    />
-                  </label>
+                  <StyledCheckboxInput
+                    {...register('paidFor', {
+                      required: 'Please select atleast one person.',
+                    })}
+                    type="checkbox"
+                    value={member}
+                    id={index}
+                  />
+                  <label htmlFor={index}>{member}</label>
                 </StyledCheckbox>
               ))}
             </CheckboxContainer>
           </InputContainerAuto>
-          <InputContainer10rem>
+          <InputContainer>
             <StyledButton>Add expense</StyledButton>
-          </InputContainer10rem>
-          <section>{errors.title && <p>{errors.title.message}</p>}</section>
-          <section>{errors.amount && <p>{errors.amount.message}</p>}</section>
-          <section>{errors.date && <p>{errors.date.message}</p>}</section>
+          </InputContainer>
         </Form>
       </Wrapper>
     );
@@ -139,11 +146,15 @@ const Wrapper = styled.div`
   align-items: center;
 
   background: ${props => props.theme.color.gradientPrimary};
+
+  * {
+    font-family: inherit;
+  }
 `;
 
 const Form = styled.form`
-  width: 95%;
-  height: 95%;
+  width: 98%;
+  height: 98%;
   padding: 0 2rem 0 2rem;
   border-radius: 3rem;
   overflow-y: scroll;
@@ -158,11 +169,6 @@ const Form = styled.form`
 `;
 
 //Sections
-
-const StyledButton = styled.button`
-  position: absolute;
-  bottom: 2rem;
-`;
 
 //Inputs
 
@@ -309,30 +315,103 @@ const StyledLabelPaidBy = styled.label`
 
 const InputContainerAuto = styled(InputContainer)`
   height: auto;
+  padding: 1rem;
+  margin-top: 4rem;
+  background-color: ${props => props.theme.color.secondaryDark};
+  border-radius: 1rem;
+
+  * {
+    font-size: 2rem;
+    user-select: none;
+  }
+
+  p {
+    color: ${props => props.theme.color.textSecondary};
+    background-color: ${props => props.theme.color.secondaryDark};
+    border-radius: 1rem;
+    line-height: 1.4rem;
+    font-size: 2rem;
+    padding: 1rem;
+
+    position: absolute;
+    transform: translateY(-3.8rem) scale(0.85);
+    top: -0.5rem;
+    left: -0.2rem;
+  }
 `;
 
 const CheckboxContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: rows;
   flex-wrap: wrap;
+  gap: 1rem;
 `;
 
 const StyledCheckboxInput = styled.input`
-  display: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  width: 3rem;
+  height: 3rem;
+  margin: auto;
+
+  background: ${props => props.theme.color.gradientPrimary};
+  border-radius: 1rem;
+
+  :checked {
+    background: ${props => props.theme.color.gradientComplementaryLight};
+  }
 `;
 
 const StyledCheckbox = styled.div`
-  width: 8rem;
-  height: 6rem;
+  width: 14rem;
+  height: 5rem;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  align-items: center;
+  justify-content: center;
+
+  background-color: ${props => props.theme.color.secondaryMedium};
+  border-radius: 1rem;
 
   label {
+    color: ${props => props.theme.color.textSecondary};
+    max-width: 10rem;
     cursor: pointer;
-    padding: 1rem;
+    word-wrap: break-word;
+  }
+`;
 
-    background-color: black;
+const StyledButton = styled.button`
+  width: 100%;
+  height: 4rem;
 
-    ${StyledCheckboxInput}:checked > {
-      background-color: gray;
-    }
+  background-color: ${props => props.theme.color.secondaryDark};
+  color: ${props => props.theme.color.textSecondary};
+  font-family: inherit;
+  font-size: 2rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+
+  :hover {
+    opacity: 80%;
+  }
+  :active {
+    opacity: 70%;
+  }
+`;
+
+const Error = styled.section`
+  font-style: italic;
+  font-size: 2rem;
+  color: ${props => props.theme.color.complementaryLight};
+
+  p {
+    margin-top: 0.3rem;
+    margin-bottom: 0;
   }
 `;
