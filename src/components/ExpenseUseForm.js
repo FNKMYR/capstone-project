@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function ExpenseUseForm({
   members,
-  addToExpenses,
+  expenses,
+  setExpenses,
   editExpense,
+  buttonContent,
 }) {
   const {
     register,
@@ -14,6 +17,7 @@ export default function ExpenseUseForm({
   } = useForm({
     defaultValues: editExpense
       ? {
+          id: editExpense.id,
           title: editExpense.title,
           description: editExpense.description,
           amount: editExpense.amount,
@@ -26,7 +30,7 @@ export default function ExpenseUseForm({
   const navigate = useNavigate();
   const onSubmit = data => {
     console.log(data);
-    addToExpenses(prevExpenses => [...prevExpenses, { ...data }]);
+    setExpenses(prevExpenses => [...prevExpenses, { ...data, id: uuidv4() }]);
     navigate(`/`);
   };
 
@@ -134,7 +138,7 @@ export default function ExpenseUseForm({
             </CheckboxContainer>
           </InputContainerAuto>
           <InputContainer>
-            <StyledButton>Add expense</StyledButton>
+            <StyledButton>{buttonContent}</StyledButton>
           </InputContainer>
         </Form>
       </Wrapper>

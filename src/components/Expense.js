@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Expense({
   expense,
@@ -13,15 +13,13 @@ export default function Expense({
   paidBy,
   paidFor,
 }) {
-  const navigate = useNavigate();
   function handleClick() {
     setEditExpense(expense);
-    navigate(`/edit`);
     console.log(expense);
   }
 
   return (
-    <Wrapper>
+    <Wrapper to="/edit" onClick={handleClick}>
       <LeftSide>
         <StyledSpan20>{title}</StyledSpan20>
         <div>
@@ -29,7 +27,6 @@ export default function Expense({
           <StyledSpanMedium>{paidBy}</StyledSpanMedium>
         </div>
       </LeftSide>
-      <button onClick={handleClick}>Click me</button>
       <RightSide>
         <StyledSpan20>{amount}</StyledSpan20>
         <StyledSpanMedium>{date}</StyledSpanMedium>
@@ -38,9 +35,11 @@ export default function Expense({
   );
 }
 
-const Wrapper = styled.section`
+const Wrapper = styled(Link)`
   height: 7.5rem;
   padding: 1.2rem;
+  text-decoration: none;
+  color: currentColor;
 
   display: flex;
   justify-content: space-between;

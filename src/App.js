@@ -17,7 +17,7 @@ export default function App() {
         element={
           <ExpensesPage
             expenses={expenses}
-            setExpenses={setExpenses}
+            setExpenses={value => setExpenses(value)}
             setEditExpense={value => setEditExpense(value)}
             members={members}
             setMembers={value => setMembers(value)}
@@ -38,6 +38,7 @@ export default function App() {
         element={
           <EditExpensePage
             members={members}
+            expenses={expenses}
             editExpense={editExpense}
             setExpenses={value => setExpenses(value)}
           />
