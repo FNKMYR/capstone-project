@@ -29,17 +29,6 @@ export default function ExpenseUseForm({
   });
   const navigate = useNavigate();
   const onSubmit = data => {
-    console.log(data);
-    console.log(expenses);
-    console.log(data.id);
-    console.log(expenses.findIndex(expense => expense.id === data.id));
-    console.log(
-      expenses.slice(
-        0,
-        expenses.findIndex(expense => expense.id === data.id)
-      )
-    );
-
     data.id
       ? setExpenses([
           ...expenses.slice(

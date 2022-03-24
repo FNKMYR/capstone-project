@@ -62,10 +62,12 @@ export default function ExpenseList({ expenses, setExpenses, setEditExpense }) {
 const Wrapper = styled.section``;
 
 const TotalExpenses = styled.section`
+  height: 4rem;
   position: sticky;
   top: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: ${props => props.theme.color.secondaryDark};
   color: ${props => props.theme.color.textSecondary};
 
