@@ -21,7 +21,7 @@ export default function Expense({
   return (
     <Wrapper to="/edit" onClick={handleClick}>
       <LeftSide>
-        <StyledSpan20>{title}</StyledSpan20>
+        <StyledSpanTitle>{title}</StyledSpanTitle>
         <div>
           <StyledSpanLight>Paid by: </StyledSpanLight>
           <StyledSpanMedium>{paidBy}</StyledSpanMedium>
@@ -41,8 +41,8 @@ const Wrapper = styled(Link)`
   text-decoration: none;
   color: currentColor;
 
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 12rem;
 
   background: ${props => props.theme.color.primaryBgLight};
   border: 1px solid ${props => props.theme.color.textPrimaryMedium};
@@ -54,6 +54,7 @@ const LeftSide = styled.section`
   flex-direction: column;
   justify-content: space-between;
   text-align: start;
+  overflow: hidden;
 `;
 
 const RightSide = styled.section`
@@ -67,6 +68,13 @@ const RightSide = styled.section`
 const StyledSpan20 = styled.span`
   font-size: 2rem;
   font-weight: 400;
+`;
+
+const StyledSpanTitle = styled(StyledSpan20)`
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledSpanLight = styled.span`

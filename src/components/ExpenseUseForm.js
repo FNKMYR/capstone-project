@@ -30,7 +30,33 @@ export default function ExpenseUseForm({
   const navigate = useNavigate();
   const onSubmit = data => {
     console.log(data);
-    setExpenses(prevExpenses => [...prevExpenses, { ...data, id: uuidv4() }]);
+    console.log(expenses);
+    console.log(data.id);
+    console.log(expenses.findIndex(expense => expense.id === data.id));
+    console.log(
+      expenses.slice(
+        0,
+        expenses.findIndex(expense => expense.id === data.id)
+      )
+    );
+
+    data.id
+      ? setExpenses([
+          ...expenses.slice(
+            0,
+            expenses.findIndex(expense => expense.id === data.id)
+          ),
+          { ...data },
+          ...expenses.slice(
+            expenses.findIndex(expense => expense.id === data.id) + 1
+          ),
+        ])
+      : // Lösung: setExpenses expeneses slicen vorher, dann element bearbeiten dann slicen und alles spreaden
+
+        setExpenses(prevExpenses => [
+          ...prevExpenses,
+          { ...data, id: uuidv4() },
+        ]);
     navigate(`/`);
   };
 
@@ -52,7 +78,11 @@ export default function ExpenseUseForm({
               autocomplete="off"
               {...register('title', {
                 required: 'Please enter an expense title.',
-                maxLength: 30,
+                maxLength: {
+                  value: 30,
+                  message:
+                    'Title is too long, use the description for more details.',
+                },
               })}
             />
             <StyledLabel htmlFor="title">Title</StyledLabel>
@@ -79,8 +109,8 @@ export default function ExpenseUseForm({
                   value: /^\d*(\.\d{0,2})?$/,
                   message: 'Please enter a valid amount.',
                 },
-                maxLength: {
-                  value: 6,
+                max: {
+                  value: 999999.99,
                   message:
                     "Looks like you're too rich to use this app. Maximum amount: 999,999€.",
                 },

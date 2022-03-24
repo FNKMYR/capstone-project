@@ -13,6 +13,7 @@ export default function EditExpensePage({
       <Header headerText="Edit expense" />
       <ExpenseUseForm
         members={members}
+        expenses={expenses}
         setExpenses={setExpenses}
         editExpense={editExpense}
         buttonContent="Save & exit"
