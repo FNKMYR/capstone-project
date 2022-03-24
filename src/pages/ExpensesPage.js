@@ -17,9 +17,7 @@ export default function ExpensesPage({
     <Wrapper>
       <Header headerText="SplitPal" backButtonVisibility="hidden" />
       <MemberForm members={members} setMembers={setMembers} />
-      <Button onClick={() => setExpenses([])}>
-        For dev purposes: Delete all expense entries.
-      </Button>
+
       <ExpenseList
         expenses={expenses}
         setExpenses={value => setExpenses(value)}
