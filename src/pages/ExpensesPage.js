@@ -12,11 +12,16 @@ export default function ExpensesPage({
   setEditExpense,
   members,
   setMembers,
+  deleteMember,
 }) {
   return (
     <Wrapper>
       <Header headerText="SplitPal" backButtonVisibility="hidden" />
-      <MemberForm members={members} setMembers={setMembers} />
+      <MemberForm
+        members={members}
+        setMembers={setMembers}
+        deleteMember={deleteMember}
+      />
 
       <ExpenseList
         expenses={expenses}

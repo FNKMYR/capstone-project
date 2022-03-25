@@ -1,21 +1,20 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
 
 export default function MemberForm({ members, setMembers }) {
-  const [inputNames, setInputNames] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [inputWarning, setInputWarning] = useState('');
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues: members ? members : '' });
-  const [inputWarning, setInputWarning] = useState('');
+  } = useForm({ defaultValues: { memberinput: '' } });
 
-  const handleMemberSubmit = event => {
-    event.preventDefault();
-    const memberArray = inputNames
+  const onSubmit = data => {
+    console.log(members);
+    console.log(data.memberinput);
+    const memberArray = data.memberinput
       .split(',')
       .map(function (name) {
         return name.trim();
@@ -24,10 +23,10 @@ export default function MemberForm({ members, setMembers }) {
         return name !== '';
       });
     if (memberArray.length > 0) {
-      setMembers(memberArray);
+      setMembers(prevMembers => [...prevMembers, ...memberArray]);
       setInputWarning('');
+      setShowPopup(false);
     } else {
-      setMembers([]);
       setInputWarning('Invalid input');
     }
   };
@@ -41,26 +40,37 @@ export default function MemberForm({ members, setMembers }) {
       {showPopup && (
         <PopupWrapper>
           <Popup>
-            {' '}
-            <form
-              onSubmit={handleMemberSubmit}
-              aria-label="Set or edit members"
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
               <label htmlFor="memberinput">
                 Member names, separated by a comma:
               </label>
-              <input
-                type="text"
-                name="memberinput"
-                id="memberinput"
-                autoComplete="off"
-                minLength={1}
-                value={inputNames}
-                onChange={event => setInputNames(event.target.value)}
-              />
-              <Button>Submit</Button>
-              {inputWarning && <Warning> {inputWarning}</Warning>}
+              <input type="text" {...register('memberinput')} />
+              <button type="submit">Submit</button>
             </form>
+            <Error>{errors.title && <p>{errors.title.message}</p>}</Error>
+            <Error>{inputWarning && <p>{inputWarning}</p>}</Error> Members:{' '}
+            <NameArea>
+              {members
+                ? members.map((member, index) => (
+                    <StyledSpan key={index}>
+                      {member}
+                      <StyledButton //This is a delete button
+                        onClick={() =>
+                          setMembers(
+                            members
+                              .slice(0, index)
+                              .concat(
+                                members.slice(index + 1, members.length + 1)
+                              )
+                          )
+                        }
+                      >
+                        X
+                      </StyledButton>
+                    </StyledSpan>
+                  ))
+                : ''}
+            </NameArea>
           </Popup>
         </PopupWrapper>
       )}
@@ -94,10 +104,39 @@ const Popup = styled.section`
   border-radius: 1rem;
 `;
 
-const Warning = styled.span`
-  color: red;
+const Error = styled.section`
+  font-size: 2rem;
+  color: ${props => props.theme.color.complementaryDark};
+
+  p {
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+  }
 `;
 
 const BoldSpan = styled.span`
   font-weight: bold;
+`;
+
+const NameArea = styled.section`
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
+const StyledSpan = styled.span`
+  background: ${props => props.theme.color.secondaryMedium};
+  color: ${props => props.theme.color.textSecondary};
+  padding: 0.5rem;
+
+  ::first-letter {
+    text-transform: capitalize;
+  }
+`;
+
+const StyledButton = styled.button`
+  cursor: pointer;
 `;

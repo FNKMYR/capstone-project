@@ -40,9 +40,7 @@ export default function ExpenseUseForm({
             expenses.findIndex(expense => expense.id === data.id) + 1
           ),
         ])
-      : // Lösung: setExpenses expeneses slicen vorher, dann element bearbeiten dann slicen und alles spreaden
-
-        setExpenses(prevExpenses => [
+      : setExpenses(prevExpenses => [
           ...prevExpenses,
           { ...data, id: uuidv4() },
         ]);
