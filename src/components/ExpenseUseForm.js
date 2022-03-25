@@ -429,9 +429,9 @@ const StyledButton = styled.button`
   height: 4rem;
 
   background-color: ${props => props.theme.color.secondaryDark};
-  color: ${props => props.theme.color.textSecondary};
+  color: ${props => props.theme.color.complementaryLight};
   font-family: inherit;
-  font-size: 2rem;
+  font-size: 3rem;
   border: none;
   border-radius: 1rem;
   cursor: pointer;

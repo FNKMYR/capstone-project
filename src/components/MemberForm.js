@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { ReactComponent as EditPen } from '../images/editPen.svg';
 
 export default function MemberForm({ members, setMembers }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -39,28 +40,41 @@ export default function MemberForm({ members, setMembers }) {
   return (
     <Wrapper>
       <MemberSection>
-        <div>
-          Members: <BoldSpan>{members.join(', ')}</BoldSpan>{' '}
-        </div>
+        <MemberSectionNames>
+          <BoldSpanLeft>Members</BoldSpanLeft>
+          <BoldSpanRight>{members.join(', ')}</BoldSpanRight>{' '}
+        </MemberSectionNames>
         <EditButton onClick={() => setShowPopup(true)}>
-          Add or edit members
+          <EditPen />
+          <p>Add or edit members</p>
         </EditButton>
       </MemberSection>
       {showPopup && (
         <PopupWrapper>
           <Popup>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <StyledForm
+              onSubmit={handleSubmit(onSubmit)}
+              aria-label="Add new members"
+            >
               <label htmlFor="memberinput">
                 Member names, separated by a comma:
               </label>
-              <input type="text" {...register('memberinput')} />
-              <button type="submit">Submit</button>
-            </form>
+              <div>
+                <input
+                  type="text"
+                  placeholder="John, Jane, ..."
+                  {...register('memberinput')}
+                />
+                <button type="submit">Submit</button>
+              </div>
+            </StyledForm>
             <Error>{errors.title && <p>{errors.title.message}</p>}</Error>
-            <Error>{inputWarning && <p>{inputWarning}</p>}</Error> Members:{' '}
-            <NameArea>
-              {members
-                ? members.map((member, index) => (
+            <Error>{inputWarning && <p>{inputWarning}</p>}</Error>
+            <CurrentMemberSection>
+              <span>Members:</span>
+              <NameArea>
+                {members ? (
+                  members.map((member, index) => (
                     <MemberName key={index}>
                       {member}
                       <DeleteButton
@@ -78,9 +92,12 @@ export default function MemberForm({ members, setMembers }) {
                       </DeleteButton>
                     </MemberName>
                   ))
-                : ''}
-            </NameArea>
-            <button onClick={onDoneSubmit}>Done</button>
+                ) : (
+                  <p>Currently none</p>
+                )}
+              </NameArea>
+            </CurrentMemberSection>
+            <DoneButton onClick={onDoneSubmit}>Done</DoneButton>
           </Popup>
         </PopupWrapper>
       )}
@@ -104,14 +121,49 @@ const PopupWrapper = styled.div`
 
 const Popup = styled.section`
   width: 30rem;
-  height: 20rem;
+  height: auto;
   position: fixed;
   top: 20%;
   left: 50%;
   margin-left: -15rem;
 
+  display: flex;
+  flex-direction: column;
+
   background: ${props => props.theme.color.primaryBgLight};
+  color: ${props => props.theme.color.textPrimaryDark};
   border-radius: 1rem;
+`;
+
+const StyledForm = styled.form`
+  margin: 1rem;
+
+  label {
+    font-weight: bold;
+    color: inherit;
+  }
+
+  div {
+    display: flex;
+  }
+
+  input {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: ${props => props.theme.color.gradientPrimary};
+  }
+
+  button {
+    appearance: none;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: ${props => props.theme.color.complementaryDark};
+    color: ${props => props.theme.color.textSecondary};
+  }
 `;
 
 const MemberSection = styled.div`
@@ -119,24 +171,55 @@ const MemberSection = styled.div`
   display: grid;
   grid-template-columns: 1fr 8rem;
   gap: 2rem;
-  font-size: 2rem;
 `;
 
-const BoldSpan = styled.span`
+const MemberSectionNames = styled.div`
+  border: 0.2rem solid ${props => props.theme.color.secondaryDark};
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: columns;
+`;
+const BoldSpanLeft = styled.span`
+  background: ${props => props.theme.color.secondaryDark};
+  color: ${props => props.theme.color.textSecondary};
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+`;
+
+const BoldSpanRight = styled.span`
   font-weight: bold;
+  margin: 0.5rem;
+  color: ${props => props.theme.color.textPrimaryDark};
 `;
 
 const EditButton = styled.button`
-  appearance: none;
   cursor: pointer;
-  width: 8rem;
-  padding: 0.6rem;
-  justify-self: end;
   border: none;
   border-radius: 1rem;
   font-size: 1.2rem;
+
   color: ${props => props.theme.color.textSecondary};
   background: ${props => props.theme.color.secondaryDark};
+
+  svg {
+    height: 3rem;
+    width: 3rem;
+    margin-top: 0.5rem;
+  }
+
+  p {
+    margin: 0 0 0.5rem 0;
+  }
+`;
+
+const CurrentMemberSection = styled.section`
+  border-radius: 1rem;
+
+  > span {
+    font-weight: bold;
+    margin: 1rem;
+  }
 `;
 
 const NameArea = styled.section`
@@ -152,6 +235,9 @@ const MemberName = styled.div`
   background: ${props => props.theme.color.secondaryMedium};
   color: ${props => props.theme.color.textSecondary};
   padding: 0.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
 
   ::first-letter {
     text-transform: capitalize;
@@ -160,6 +246,10 @@ const MemberName = styled.div`
 
 const DeleteButton = styled.button`
   cursor: pointer;
+  color: ${props => props.theme.color.complementaryDark};
+  border: 0.1rem solid ${props => props.theme.color.textSecondary};
+  border-radius: 50rem;
+  margin-left: 1rem;
 `;
 
 const Error = styled.section`
@@ -167,7 +257,21 @@ const Error = styled.section`
   color: ${props => props.theme.color.complementaryDark};
 
   p {
-    margin-top: 0.3rem;
-    margin-bottom: 0;
+    margin: 0 0 1rem 1rem;
   }
+`;
+
+const DoneButton = styled.button`
+  appearance: none;
+  cursor: pointer;
+  width: 50%;
+  margin: 1rem;
+  padding: 1rem;
+  align-self: center;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: ${props => props.theme.color.complementaryDark};
+  color: ${props => props.theme.color.textSecondary};
+  font-weight: bold;
+  font-size: 2rem;
 `;
