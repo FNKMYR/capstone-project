@@ -8,6 +8,7 @@ export default function MemberForm({ members, setMembers }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ defaultValues: { memberinput: '' } });
 
@@ -25,18 +26,26 @@ export default function MemberForm({ members, setMembers }) {
     if (memberArray.length > 0) {
       setMembers(prevMembers => [...prevMembers, ...memberArray]);
       setInputWarning('');
-      setShowPopup(false);
+      reset();
     } else {
       setInputWarning('Invalid input');
     }
   };
 
+  const onDoneSubmit = () => {
+    setShowPopup(false);
+  };
+
   return (
     <Wrapper>
-      <p>
-        Members: <BoldSpan>{members.join(', ')}</BoldSpan>{' '}
-      </p>
-      <button onClick={() => setShowPopup(true)}>Edit members</button>
+      <MemberSection>
+        <div>
+          Members: <BoldSpan>{members.join(', ')}</BoldSpan>{' '}
+        </div>
+        <EditButton onClick={() => setShowPopup(true)}>
+          Add or edit members
+        </EditButton>
+      </MemberSection>
       {showPopup && (
         <PopupWrapper>
           <Popup>
@@ -52,9 +61,9 @@ export default function MemberForm({ members, setMembers }) {
             <NameArea>
               {members
                 ? members.map((member, index) => (
-                    <StyledSpan key={index}>
+                    <MemberName key={index}>
                       {member}
-                      <StyledButton //This is a delete button
+                      <DeleteButton
                         onClick={() =>
                           setMembers(
                             members
@@ -66,11 +75,12 @@ export default function MemberForm({ members, setMembers }) {
                         }
                       >
                         X
-                      </StyledButton>
-                    </StyledSpan>
+                      </DeleteButton>
+                    </MemberName>
                   ))
                 : ''}
             </NameArea>
+            <button onClick={onDoneSubmit}>Done</button>
           </Popup>
         </PopupWrapper>
       )}
@@ -104,18 +114,29 @@ const Popup = styled.section`
   border-radius: 1rem;
 `;
 
-const Error = styled.section`
+const MemberSection = styled.div`
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 8rem;
+  gap: 2rem;
   font-size: 2rem;
-  color: ${props => props.theme.color.complementaryDark};
-
-  p {
-    margin-top: 0.3rem;
-    margin-bottom: 0;
-  }
 `;
 
 const BoldSpan = styled.span`
   font-weight: bold;
+`;
+
+const EditButton = styled.button`
+  appearance: none;
+  cursor: pointer;
+  width: 8rem;
+  padding: 0.6rem;
+  justify-self: end;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  color: ${props => props.theme.color.textSecondary};
+  background: ${props => props.theme.color.secondaryDark};
 `;
 
 const NameArea = styled.section`
@@ -127,7 +148,7 @@ const NameArea = styled.section`
   gap: 1rem;
 `;
 
-const StyledSpan = styled.span`
+const MemberName = styled.div`
   background: ${props => props.theme.color.secondaryMedium};
   color: ${props => props.theme.color.textSecondary};
   padding: 0.5rem;
@@ -137,6 +158,16 @@ const StyledSpan = styled.span`
   }
 `;
 
-const StyledButton = styled.button`
+const DeleteButton = styled.button`
   cursor: pointer;
+`;
+
+const Error = styled.section`
+  font-size: 2rem;
+  color: ${props => props.theme.color.complementaryDark};
+
+  p {
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+  }
 `;
