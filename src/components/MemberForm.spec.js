@@ -1,16 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import Theme from '../Theme.js';
 import MemberForm from './MemberForm.js';
 
 describe('MemberForm', () => {
-  it('renders a form aria-labelled "Set or edit members"', () => {
+  it('renders a form aria-labelled "Add or edit members"', () => {
     render(
       <MemoryRouter>
-        <MemberForm members={[]} />
+        <Theme>
+          <MemberForm members={[]} showPopup="false" />
+        </Theme>
       </MemoryRouter>
     );
-    const form = screen.getByRole('form', {
-      name: 'Set or edit members',
+    const form = screen.getByRole('button', {
+      name: 'editPen.svg Add or edit members',
     });
     expect(form).toBeInTheDocument();
   });
@@ -18,7 +21,9 @@ describe('MemberForm', () => {
   it('renders a text input field and a submit-button', () => {
     render(
       <MemoryRouter>
-        <MemberForm members={[]} />
+        <Theme>
+          <MemberForm members={[]} showPopup={true} />
+        </Theme>
       </MemoryRouter>
     );
     const titleInput = screen.getByLabelText(

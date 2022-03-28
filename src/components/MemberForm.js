@@ -150,7 +150,7 @@ const StyledForm = styled.form`
   input {
     padding: 1rem;
     border-radius: 0.5rem;
-    background: ${props => props.theme.color.gradientPrimary};
+    background: ${props => props.theme.color.primaryBgMedium};
   }
 
   button {
