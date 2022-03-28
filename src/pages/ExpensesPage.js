@@ -9,19 +9,24 @@ import MemberForm from '../components/MemberForm.js';
 export default function ExpensesPage({
   expenses,
   setExpenses,
+  setEditExpense,
   members,
   setMembers,
+  deleteMember,
 }) {
   return (
     <Wrapper>
       <Header headerText="SplitPal" backButtonVisibility="hidden" />
-      <MemberForm members={members} setMembers={setMembers} />
-      <Button onClick={() => setExpenses([])}>
-        For dev purposes: Delete all expense entries.
-      </Button>
+      <MemberForm
+        members={members}
+        setMembers={setMembers}
+        deleteMember={deleteMember}
+      />
+
       <ExpenseList
         expenses={expenses}
         setExpenses={value => setExpenses(value)}
+        setEditExpense={setEditExpense}
       />
       <StyledButton as={Link} to="/add">
         <img src={AddButton} alt="Add a new expense"></img>

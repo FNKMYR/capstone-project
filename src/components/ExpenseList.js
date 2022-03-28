@@ -1,29 +1,14 @@
 import styled from 'styled-components';
 import Expense from './Expense.js';
 
-export default function ExpenseList({ expenses, setExpenses }) {
+export default function ExpenseList({ expenses, setExpenses, setEditExpense }) {
   const totalExpenses = Number(
     expenses
       .map(expense => expense.amount)
       .reduce((prev, curr) => +prev + +curr, 0)
     //The unary plus operator (+prev) converts the strings to numbers
   );
-  function expenseFormatter(num) {
-    //puts the expense into a 1,234,567.89€ format
-    let p = Number(num).toFixed(2).split('.');
-    return (
-      (p[0].split('')[0] === '-' ? '-' : '') +
-      p[0]
-        .split('')
-        .reverse()
-        .reduce(function (acc, num, i, orig) {
-          return num === '-' ? acc : num + (i && !(i % 3) ? ',' : '') + acc;
-        }, '') +
-      '.' +
-      p[1] +
-      ' €'
-    );
-  }
+
   return (
     <Wrapper>
       <TotalExpenses>
@@ -35,6 +20,8 @@ export default function ExpenseList({ expenses, setExpenses }) {
           .map((expense, index) => (
             <Expense
               key={index}
+              expense={expense}
+              setEditExpense={setEditExpense}
               title={expense.title}
               description={expense.description}
               amount={expenseFormatter(expense.amount)}
@@ -55,15 +42,34 @@ export default function ExpenseList({ expenses, setExpenses }) {
       </Scrollarea>
     </Wrapper>
   );
+
+  function expenseFormatter(num) {
+    //puts the expense into a 1,234,567.89€ format
+    let p = Number(num).toFixed(2).split('.');
+    return (
+      (p[0].split('')[0] === '-' ? '-' : '') +
+      p[0]
+        .split('')
+        .reverse()
+        .reduce(function (acc, num, i, orig) {
+          return num === '-' ? acc : num + (i && !(i % 3) ? ',' : '') + acc;
+        }, '') +
+      '.' +
+      p[1] +
+      ' €'
+    );
+  }
 }
 
 const Wrapper = styled.section``;
 
 const TotalExpenses = styled.section`
+  height: 4rem;
   position: sticky;
   top: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: ${props => props.theme.color.secondaryDark};
   color: ${props => props.theme.color.textSecondary};
 

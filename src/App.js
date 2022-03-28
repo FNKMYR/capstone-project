@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ExpensesPage from './pages/ExpensesPage.js';
 import AddExpensePage from './pages/AddExpensePage.js';
-import SampleData from './data/sampleData.js';
+import EditExpensePage from './pages/EditExpensePage.js';
 
 export default function App() {
   const [members, setMembers] = useState([]);
-  const [expenses, setExpenses] = useState(SampleData);
+  const [expenses, setExpenses] = useState([]);
+  const [editExpense, setEditExpense] = useState();
+
   return (
     <Routes>
       <Route
@@ -14,7 +16,8 @@ export default function App() {
         element={
           <ExpensesPage
             expenses={expenses}
-            setExpenses={setExpenses}
+            setExpenses={value => setExpenses(value)}
+            setEditExpense={value => setEditExpense(value)}
             members={members}
             setMembers={value => setMembers(value)}
           ></ExpensesPage>
@@ -25,6 +28,18 @@ export default function App() {
         element={
           <AddExpensePage
             members={members}
+            expenses={expenses}
+            setExpenses={value => setExpenses(value)}
+          />
+        }
+      ></Route>
+      <Route
+        path="/edit"
+        element={
+          <EditExpensePage
+            members={members}
+            expenses={expenses}
+            editExpense={editExpense}
             setExpenses={value => setExpenses(value)}
           />
         }
