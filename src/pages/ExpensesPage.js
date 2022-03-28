@@ -11,6 +11,7 @@ export default function ExpensesPage({
   expenses,
   setExpenses,
   setEditExpense,
+  expenseFormatter,
   members,
   setMembers,
   deleteMember,
@@ -28,11 +29,12 @@ export default function ExpensesPage({
         expenses={expenses}
         setExpenses={value => setExpenses(value)}
         setEditExpense={setEditExpense}
+        expenseFormatter={expenseFormatter}
       />
       <StyledButton as={Link} to="/add">
         <img src={AddButton} alt="Add a new expense"></img>
       </StyledButton>
-      <Navigation expensesActive={true} />
+      <Navigation />
     </Wrapper>
   );
 }

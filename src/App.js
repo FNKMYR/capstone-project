@@ -21,6 +21,7 @@ export default function App() {
             setEditExpense={value => setEditExpense(value)}
             members={members}
             setMembers={value => setMembers(value)}
+            expenseFormatter={num => expenseFormatter(num)}
           ></ExpensesPage>
         }
       ></Route>
@@ -31,6 +32,7 @@ export default function App() {
             expenses={expenses}
             setExpenses={value => setExpenses(value)}
             members={members}
+            expenseFormatter={num => expenseFormatter(num)}
           ></BalancesPage>
         }
       ></Route>
@@ -57,4 +59,21 @@ export default function App() {
       ></Route>
     </Routes>
   );
+
+  function expenseFormatter(num) {
+    //puts the expense into a 1,234,567.89€ format
+    let p = Number(num).toFixed(2).split('.');
+    return (
+      (p[0].split('')[0] === '-' ? '-' : '') +
+      p[0]
+        .split('')
+        .reverse()
+        .reduce(function (acc, num, i, orig) {
+          return num === '-' ? acc : num + (i && !(i % 3) ? ',' : '') + acc;
+        }, '') +
+      '.' +
+      p[1] +
+      ' €'
+    );
+  }
 }

@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import Expense from './Expense.js';
+import Balance from './Balance.js';
 
-export default function ExpenseList({
+export default function BalanceList({
   expenses,
   setExpenses,
   setEditExpense,
+  members,
   expenseFormatter,
 }) {
   const totalExpenses = Number(
@@ -21,32 +22,34 @@ export default function ExpenseList({
         <p>{expenseFormatter(totalExpenses)}</p>
       </TotalExpenses>
       <Scrollarea>
-        {expenses
-          .map((expense, index) => (
-            <Expense
-              key={index}
-              expense={expense}
-              setEditExpense={setEditExpense}
-              title={expense.title}
-              description={expense.description}
-              amount={expenseFormatter(expense.amount)}
-              date={expense.date}
-              paidBy={expense.paidBy}
-              paidFor={expense.paidFor}
-              deleteExpense={() =>
-                //This is for the delete button
-                setExpenses(
-                  expenses
-                    .slice(0, index)
-                    .concat(expenses.slice(index + 1, expenses.length + 1))
-                )
-              }
-            />
-          ))
-          .reverse()}
+        {members.map((member, index) => (
+          <Balance
+            key={index}
+            member={member}
+            expenses={expenses}
+            expenseFormatter={expenseFormatter}
+          />
+        ))}
       </Scrollarea>
     </Wrapper>
   );
+
+  function expenseFormatter(num) {
+    //puts the expense into a 1,234,567.89€ format
+    let p = Number(num).toFixed(2).split('.');
+    return (
+      (p[0].split('')[0] === '-' ? '-' : '') +
+      p[0]
+        .split('')
+        .reverse()
+        .reduce(function (acc, num, i, orig) {
+          return num === '-' ? acc : num + (i && !(i % 3) ? ',' : '') + acc;
+        }, '') +
+      '.' +
+      p[1] +
+      ' €'
+    );
+  }
 }
 
 const Wrapper = styled.section``;
