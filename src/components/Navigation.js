@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export default function Navigation({ expensesActive }) {
+export default function Navigation() {
   return (
     <Wrapper>
-      <Expenses to="/">Expenses</Expenses>
-      <Balances to="/balances">Balances</Balances>
+      <NavLink to="/">Expenses</NavLink>
+      <NavLink to="/balances">Balances</NavLink>
     </Wrapper>
   );
 }
 
-const Wrapper = styled.header`
+const Wrapper = styled.section`
   height: 7.5rem;
   width: 100%;
   position: absolute;
@@ -26,7 +26,7 @@ const Wrapper = styled.header`
 
   cursor: pointer;
 
-  > a {
+  a {
     height: 100%;
     width: 100%;
     display: flex;
@@ -36,31 +36,10 @@ const Wrapper = styled.header`
     border: 1px solid ${props => props.theme.color.textSecondary};
     text-decoration: none;
     color: currentColor;
-  }
-`;
 
-// const Expenses = styled(NavLink)`
-//   background: ${props =>
-//     props.expensesActive
-//       ? props.theme.color.secondaryDark
-//       : props.theme.color.secondaryLight};
-
-//   color: ${props =>
-//     props.expensesActive
-//       ? props.theme.color.complementaryLight
-//       : props.theme.color.textSecondary};
-// `;
-
-const Balances = styled(NavLink)`
-  &.active {
-    color: ${props => props.theme.color.complementaryLight};
-    background: ${props => props.theme.color.secondaryDark};
-  }
-`;
-
-const Expenses = styled(NavLink)`
-  &.active {
-    color: ${props => props.theme.color.complementaryLight};
-    background: ${props => props.theme.color.secondaryDark};
+    &.active {
+      color: ${props => props.theme.color.complementaryLight};
+      background: ${props => props.theme.color.secondaryDark};
+    }
   }
 `;
