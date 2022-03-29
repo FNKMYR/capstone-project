@@ -30,7 +30,13 @@ export default function Expense({ expenses, member, expenseFormatter }) {
         </span>
       </Middle>
       <RightSide>
-        <StyledSpan18>{expenseFormatter(balance)}</StyledSpan18>
+        {balance === 0 ? (
+          <StyledSpan18>{expenseFormatter(balance)}</StyledSpan18>
+        ) : balance > 0 ? (
+          <StyledSpan18Green>{expenseFormatter(balance)}</StyledSpan18Green>
+        ) : (
+          <StyledSpan18Red>{expenseFormatter(balance)}</StyledSpan18Red>
+        )}
       </RightSide>
     </Wrapper>
   );
@@ -72,6 +78,14 @@ const StyledSpan18 = styled.span`
   font-weight: 400;
 `;
 
+const StyledSpan18Green = styled(StyledSpan18)`
+  color: green;
+`;
+
+const StyledSpan18Red = styled(StyledSpan18)`
+  color: red;
+`;
+
 const StyledSpanTitle = styled(StyledSpan18)`
   overflow: hidden;
   word-wrap: normal;
@@ -81,12 +95,4 @@ const StyledSpanMedium = styled.span`
   color: ${props => props.theme.color.textPrimaryMedium};
   font-weight: 300;
   font-size: 1.4rem;
-`;
-
-const StyledSpanMediumGreen = styled.span`
-  color: green;
-`;
-
-const StyledSpanMediumRed = styled.span`
-  color: red;
 `;
