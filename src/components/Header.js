@@ -1,15 +1,19 @@
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as BackButtonSvg } from '../images/backButton.svg';
 
 export default function Header({ headerText, backButtonVisibility }) {
+  const navigate = useNavigate();
+
   return (
     <StyledHeader>
       <ButtonContainer>
-        <StyledButton as={Link} to="/" visibility={backButtonVisibility}>
+        <StyledBackButton
+          onClick={() => navigate(-1)}
+          visibility={backButtonVisibility}
+        >
           <BackButtonSvg />
-        </StyledButton>
+        </StyledBackButton>
       </ButtonContainer>
       <HeaderContainer>
         <StyledH1>{headerText}</StyledH1>
@@ -35,10 +39,12 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: inherit;
 `;
 
-const StyledButton = styled(Button)`
+const StyledBackButton = styled.a`
   visibility: ${props => props.visibility};
+  cursor: pointer;
   position: absolute;
   top: 1.7rem;
   left: 1rem;

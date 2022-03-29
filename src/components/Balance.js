@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default function Expense({ expenses, member, expenseFormatter }) {
+export default function Balance({ expenses, member, expenseFormatter }) {
   const moneySpent = expenses
     .filter(expense => expense.paidBy === member)
     .map(expense => expense.amount)

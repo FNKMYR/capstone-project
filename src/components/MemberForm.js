@@ -14,8 +14,6 @@ export default function MemberForm({ members, setMembers }) {
   } = useForm({ defaultValues: { memberinput: '' } });
 
   const onSubmit = data => {
-    console.log(members);
-    console.log(data.memberinput);
     const memberArray = data.memberinput
       .split(',')
       .map(function (name) {

@@ -1,15 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage.js';
 import ExpensesPage from './pages/ExpensesPage.js';
 import BalancesPage from './pages/BalancesPage.js';
 import AddExpensePage from './pages/AddExpensePage.js';
 import EditExpensePage from './pages/EditExpensePage.js';
+import PayUpPage from './pages/PayUpPage.js';
 
 export default function App() {
   const [members, setMembers] = useLocalStorage('members', []);
   const [expenses, setExpenses] = useLocalStorage('expenses', []);
   const [editExpense, setEditExpense] = useState();
+  const [balances, setBalances] = useState([]);
 
   return (
     <Routes>
@@ -24,17 +26,6 @@ export default function App() {
             setMembers={value => setMembers(value)}
             expenseFormatter={num => expenseFormatter(num)}
           ></ExpensesPage>
-        }
-      ></Route>
-      <Route
-        path="/balances"
-        element={
-          <BalancesPage
-            expenses={expenses}
-            setExpenses={value => setExpenses(value)}
-            members={members}
-            expenseFormatter={num => expenseFormatter(num)}
-          ></BalancesPage>
         }
       ></Route>
       <Route
@@ -58,6 +49,30 @@ export default function App() {
           />
         }
       ></Route>
+      <Route
+        path="/balances"
+        element={
+          <BalancesPage
+            expenses={expenses}
+            members={members}
+            expenseFormatter={num => expenseFormatter(num)}
+            calculateBalances={calculateBalances}
+          ></BalancesPage>
+        }
+      ></Route>
+      <Route
+        path="/payup"
+        element={
+          <PayUpPage
+            members={members}
+            expenses={expenses}
+            setExpenses={value => setExpenses(value)}
+            expenseFormatter={num => expenseFormatter(num)}
+            balances={balances}
+            setBalances={value => setBalances(value)}
+          />
+        }
+      ></Route>
     </Routes>
   );
 
@@ -76,5 +91,53 @@ export default function App() {
       p[1] +
       ' €'
     );
+  }
+
+  function calculateBalances() {
+    setBalances([]);
+    members.map(member =>
+      setBalances(prevBalances => [
+        ...prevBalances,
+        {
+          name: member,
+          amount:
+            expenses
+              .filter(expense => expense.paidBy === member)
+              .map(expense => expense.amount)
+              .reduce((prev, curr) => +prev + +curr, 0) -
+            expenses
+              .filter(expense => expense.paidFor.includes(member))
+              .map(expense => expense.amount / expense.paidFor.length)
+              .reduce((prev, curr) => +prev + +curr, 0),
+        },
+      ])
+    );
+    calculateTransactions();
+  }
+
+  function calculateTransactions() {
+    function getMaxIndex(arr, i) {
+      let maxInd = 0;
+      let arrAmount = arr.map(ind => ind.amount);
+      for (i = 1; i < arr.length; i++)
+        if (arrAmount[i] > arrAmount[maxInd]) maxInd = i;
+      return maxInd;
+    }
+    function getMinIndex(arr, i) {
+      let minInd = 0;
+      let arrAmount = arr.map(ind => ind.amount);
+      for (i = 1; i < arr.length; i++)
+        if (arrAmount[i] < arrAmount[minInd]) minInd = i;
+      return minInd;
+    }
+    console.log(balances);
+    console.log(balances.map(balance => balance.amount));
+    console.log(getMaxIndex(balances));
+    console.log(getMinIndex(balances));
+
+    balances.map(balance => balance.amount)[getMaxIndex(balances)] >
+    -balances.map(balance => balance.amount)[getMinIndex(balances)]
+      ? console.log('yes')
+      : console.log('no');
   }
 }
