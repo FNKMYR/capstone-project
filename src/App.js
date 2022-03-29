@@ -1,13 +1,14 @@
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import useLocalStorage from './hooks/useLocalStorage.js';
 import ExpensesPage from './pages/ExpensesPage.js';
 import BalancesPage from './pages/BalancesPage.js';
 import AddExpensePage from './pages/AddExpensePage.js';
 import EditExpensePage from './pages/EditExpensePage.js';
 
 export default function App() {
-  const [members, setMembers] = useState([]);
-  const [expenses, setExpenses] = useState([]);
+  const [members, setMembers] = useLocalStorage('members', []);
+  const [expenses, setExpenses] = useLocalStorage('expenses', []);
   const [editExpense, setEditExpense] = useState();
 
   return (
