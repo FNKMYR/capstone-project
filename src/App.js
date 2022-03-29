@@ -94,28 +94,25 @@ export default function App() {
   }
 
   function calculateBalances() {
-    setBalances([]);
+    const balances2 = [];
     members.map(member =>
-      setBalances(prevBalances => [
-        ...prevBalances,
-        {
-          name: member,
-          amount:
-            expenses
-              .filter(expense => expense.paidBy === member)
-              .map(expense => expense.amount)
-              .reduce((prev, curr) => +prev + +curr, 0) -
-            expenses
-              .filter(expense => expense.paidFor.includes(member))
-              .map(expense => expense.amount / expense.paidFor.length)
-              .reduce((prev, curr) => +prev + +curr, 0),
-        },
-      ])
+      balances2.push({
+        name: member,
+        amount:
+          expenses
+            .filter(expense => expense.paidBy === member)
+            .map(expense => expense.amount)
+            .reduce((prev, curr) => +prev + +curr, 0) -
+          expenses
+            .filter(expense => expense.paidFor.includes(member))
+            .map(expense => expense.amount / expense.paidFor.length)
+            .reduce((prev, curr) => +prev + +curr, 0),
+      })
     );
-    calculateTransactions();
+    calculateTransactions(balances2);
   }
 
-  function calculateTransactions() {
+  function calculateTransactions(inputArray) {
     function getMaxIndex(arr, i) {
       let maxInd = 0;
       let arrAmount = arr.map(ind => ind.amount);
@@ -130,13 +127,13 @@ export default function App() {
         if (arrAmount[i] < arrAmount[minInd]) minInd = i;
       return minInd;
     }
-    console.log(balances);
-    console.log(balances.map(balance => balance.amount));
-    console.log(getMaxIndex(balances));
-    console.log(getMinIndex(balances));
+    console.log(inputArray);
+    console.log(inputArray.map(balance => balance.amount));
+    console.log(getMaxIndex(inputArray));
+    console.log(getMinIndex(inputArray));
 
-    balances.map(balance => balance.amount)[getMaxIndex(balances)] >
-    -balances.map(balance => balance.amount)[getMinIndex(balances)]
+    inputArray.map(balance => balance.amount)[getMaxIndex(inputArray)] >
+    -inputArray.map(balance => balance.amount)[getMinIndex(inputArray)]
       ? console.log('yes')
       : console.log('no');
   }
