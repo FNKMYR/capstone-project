@@ -13,7 +13,7 @@ export default function Navigation() {
 const Wrapper = styled.section`
   height: 7.5rem;
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
 
   display: grid;

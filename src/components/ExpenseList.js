@@ -49,7 +49,9 @@ export default function ExpenseList({
   );
 }
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  margin-bottom: 7.5rem;
+`;
 
 const TotalExpenses = styled.section`
   height: 4rem;

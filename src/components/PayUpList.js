@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import PayUpTransaction from './PayUpTransaction.js';
 
-export default function PayUpList({ expenses, members, expenseFormatter }) {
+export default function PayUpList({
+  expenses,
+  members,
+  expenseFormatter,
+  transactions,
+}) {
   const totalExpenses = Number(
     expenses
       .map(expense => expense.amount)
@@ -16,7 +21,13 @@ export default function PayUpList({ expenses, members, expenseFormatter }) {
         <p>{expenseFormatter(totalExpenses)}</p>
       </TotalExpenses>
       <Scrollarea>
-        <PayUpTransaction />
+        {transactions.map((transaction, index) => (
+          <PayUpTransaction
+            key={index}
+            transaction={transaction}
+            expenseFormatter={expenseFormatter}
+          />
+        ))}
       </Scrollarea>
     </Wrapper>
   );

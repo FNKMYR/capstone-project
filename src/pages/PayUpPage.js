@@ -9,10 +9,11 @@ export default function PayUpPage({
   members,
   balances,
   setBalances,
+  transactions,
 }) {
   return (
     <Wrapper>
-      <Header headerText="Pay up, bitch" backButtonVisibility="visible" />
+      <Header headerText="Pay your debts" backButtonVisibility="visible" />
 
       <PayUpList
         expenses={expenses}
@@ -21,6 +22,7 @@ export default function PayUpPage({
         expenseFormatter={expenseFormatter}
         balances={balances}
         setBalances={setBalances}
+        transactions={transactions}
       />
     </Wrapper>
   );

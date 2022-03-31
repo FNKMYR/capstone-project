@@ -16,7 +16,14 @@ export default function Header({ headerText, backButtonVisibility }) {
         </StyledBackButton>
       </ButtonContainer>
       <HeaderContainer>
-        <StyledH1>{headerText}</StyledH1>
+        {headerText === 'SplitPal' ? (
+          <StyledH1SplitPal>
+            <span>Split</span>
+            <SpanComplementary>Pal</SpanComplementary>
+          </StyledH1SplitPal>
+        ) : (
+          <StyledH1>{headerText}</StyledH1>
+        )}
       </HeaderContainer>
     </StyledHeader>
   );
@@ -58,4 +65,15 @@ const StyledBackButton = styled.a`
 const StyledH1 = styled.h1`
   color: ${props => props.theme.color.textSecondary};
   margin: auto;
+`;
+
+const StyledH1SplitPal = styled(StyledH1)`
+  font-size: 4rem;
+  color: ${props => props.theme.color.complementaryLight};
+  font-weight: 200;
+`;
+
+const SpanComplementary = styled.span`
+  color: ${props => props.theme.color.textSecondary};
+  font-weight: 300;
 `;
