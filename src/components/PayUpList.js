@@ -1,7 +1,12 @@
 import styled from 'styled-components';
-import Balance from './Balance.js';
+import PayUpTransaction from './PayUpTransaction.js';
 
-export default function BalanceList({ expenses, members, expenseFormatter }) {
+export default function PayUpList({
+  expenses,
+  members,
+  expenseFormatter,
+  transactions,
+}) {
   const totalExpenses = Number(
     expenses
       .map(expense => expense.amount)
@@ -16,11 +21,10 @@ export default function BalanceList({ expenses, members, expenseFormatter }) {
         <p>{expenseFormatter(totalExpenses)}</p>
       </TotalExpenses>
       <Scrollarea>
-        {members.map((member, index) => (
-          <Balance
+        {transactions.map((transaction, index) => (
+          <PayUpTransaction
             key={index}
-            member={member}
-            expenses={expenses}
+            transaction={transaction}
             expenseFormatter={expenseFormatter}
           />
         ))}

@@ -1,18 +1,29 @@
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as BackButtonSvg } from '../images/backButton.svg';
 
 export default function Header({ headerText, backButtonVisibility }) {
+  const navigate = useNavigate();
+
   return (
     <StyledHeader>
       <ButtonContainer>
-        <StyledButton as={Link} to="/" visibility={backButtonVisibility}>
+        <StyledBackButton
+          onClick={() => navigate(-1)}
+          visibility={backButtonVisibility}
+        >
           <BackButtonSvg />
-        </StyledButton>
+        </StyledBackButton>
       </ButtonContainer>
       <HeaderContainer>
-        <StyledH1>{headerText}</StyledH1>
+        {headerText === 'SplitPal' ? (
+          <StyledH1SplitPal>
+            <span>Split</span>
+            <SpanComplementary>Pal</SpanComplementary>
+          </StyledH1SplitPal>
+        ) : (
+          <StyledH1>{headerText}</StyledH1>
+        )}
       </HeaderContainer>
     </StyledHeader>
   );
@@ -35,10 +46,12 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: inherit;
 `;
 
-const StyledButton = styled(Button)`
+const StyledBackButton = styled.a`
   visibility: ${props => props.visibility};
+  cursor: pointer;
   position: absolute;
   top: 1.7rem;
   left: 1rem;
@@ -52,4 +65,15 @@ const StyledButton = styled(Button)`
 const StyledH1 = styled.h1`
   color: ${props => props.theme.color.textSecondary};
   margin: auto;
+`;
+
+const StyledH1SplitPal = styled(StyledH1)`
+  font-size: 4rem;
+  color: ${props => props.theme.color.complementaryLight};
+  font-weight: 200;
+`;
+
+const SpanComplementary = styled.span`
+  color: ${props => props.theme.color.textSecondary};
+  font-weight: 300;
 `;
